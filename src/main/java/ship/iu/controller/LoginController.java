@@ -36,15 +36,16 @@ public class LoginController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		// lấy tham số từ views
+		if()
 		String username = request.getParameter("username").trim();
 		String password = request.getParameter("pass").trim();
-		String remember = request.getParameter("remember").trim();
+		String remember = request.getParameter("remember");
 		boolean isRememberMe = false;
 		// kiểm tra Parameter
 		if ("on".equals(remember)) {
 			isRememberMe = true;
 		}
-	String alertMsg = "";
+		String alertMsg = "";
 		if (username.isEmpty() || password.isEmpty()) {
 			alertMsg = "Username and password cannot be empty";
 			request.setAttribute("alert", alertMsg);
@@ -72,5 +73,16 @@ public class LoginController extends HttpServlet {
 		Cookie cookie = new Cookie(Constant.COOKIE_REMEMBER, username);
 		cookie.setMaxAge(30 * 60);
 		response.addCookie(cookie);
+	}
+	private void checkCookie(HttpServletRequest request) {
+		Cookie[] cookies = request.getCookies();
+		if (cookies != null) {
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals(Constant.COOKIE_REMEMBER)) {
+					String username = cookie.getValue();
+					request.setAttribute("username", username);
+				}
+			}
+		}
 	}
 }

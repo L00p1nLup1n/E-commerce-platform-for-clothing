@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/home" })
+@WebServlet(urlPatterns = { "/home"})
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -17,5 +17,7 @@ public class HomeController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		req.getRequestDispatcher("/views/Home.jsp").forward(req, resp);
 
+	}
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	}
 }

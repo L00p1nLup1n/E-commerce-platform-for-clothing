@@ -2,25 +2,22 @@ package ship.iu.controller.user;
 
 import java.io.IOException;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/users/home"})
+@WebServlet(urlPatterns = {"/users/home" })
 public class HomeController extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("/views/user/userHome.jsp");
-		rd.forward(request, response);
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+		req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
+
 	}
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 	}
 }

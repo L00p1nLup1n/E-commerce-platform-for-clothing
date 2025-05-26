@@ -1,29 +1,30 @@
 package ship.iu.controller;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import ship.iu.controller.DBconnectionSQL;
 
 public class DBconnectionSQL {
 	private static String DB_URL = "jdbc:mysql://localhost:3306/ltweb01";
-	private static String user_name = "root";
-	private static String pass = "lamhocUTE2024.";
-	private static Connection con;
-
-	public static Connection getConn() throws IOException {
-		con = null;
+	private static String user_name = "sqluser";
+	private static String pass = "password";
+	static {
 		try {
-			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-			con = (Connection) DriverManager.getConnection(DB_URL, user_name, pass);
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+		}
+	}
+
+	public static Connection getConn() throws SQLException {
+		try {
+			return DriverManager.getConnection(DB_URL, user_name, pass);
 		} catch (SQLException ex) {
 			Logger.getLogger(DBconnectionSQL.class.getName()).log(Level.SEVERE, null, ex);
+			throw new SQLException("Failed to connect to database", ex);
 		}
-		return (con);
 	}
 
 	public static void main(String[] args) {
