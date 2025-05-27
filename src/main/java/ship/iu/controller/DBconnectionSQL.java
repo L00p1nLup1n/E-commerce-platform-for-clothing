@@ -9,8 +9,8 @@ import java.util.logging.Logger;
 
 public class DBconnectionSQL {
 	private static String DB_URL = "jdbc:mysql://localhost:3306/ltweb01";
-	private static String user_name = "sqluser";
-	private static String pass = "password";
+	private static String user_name = "root";
+	private static String pass = "lamhocUTE2024.";
 	static {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");

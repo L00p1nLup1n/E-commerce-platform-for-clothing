@@ -5,18 +5,18 @@ var scrolltotop = {
     anchorkeyword: '#top',
     state: { isvisible: false, shouldvisible: false },
 
-    scrollup: function() {
+    scrollup: function () {
         this.$body.animate({ scrollTop: 0 }, this.setting.scrollduration);
     },
 
-    keepfixed: function() {
+    keepfixed: function () {
         var $window = jQuery(window);
         var controlx = $window.scrollLeft() + $window.width() - this.$control.width() - this.controlattrs.offsetx;
         var controly = $window.scrollTop() + $window.height() - this.$control.height() - this.controlattrs.offsety;
         this.$control.css({ left: controlx + 'px', top: controly + 'px' });
     },
 
-    togglecontrol: function() {
+    togglecontrol: function () {
         var scrolltop = jQuery(window).scrollTop();
         if (!this.cssfixedsupport) this.keepfixed();
         this.state.shouldvisible = (scrolltop >= this.setting.startline);
@@ -29,12 +29,12 @@ var scrolltotop = {
         }
     },
 
-    init: function() {
-        jQuery(document).ready(function($) {
+    init: function () {
+        jQuery(document).ready(function ($) {
             var mainobj = scrolltotop;
 
             // Dynamically set the controlHTML with proper URL
-            var imgSrc = 'http://localhost:8080/0909/assets/frontend/layout/img/up.png'; // Adjust the path as necessary
+            var imgSrc = '/0909-1.1.0/assets/frontend/layout/img/up.png'; // Absolute path from web root
             mainobj.controlHTML = `<img src="${imgSrc}" style="width:40px; height:40px" alt="Back to Top" />`;
 
             mainobj.cssfixedsupport = true; // Assume modern browsers
@@ -42,13 +42,13 @@ var scrolltotop = {
             mainobj.$control = $('<div id="topcontrol">' + mainobj.controlHTML + '</div>')
                 .css({ position: 'fixed', bottom: mainobj.controlattrs.offsety, right: mainobj.controlattrs.offsetx, opacity: 0, cursor: 'pointer' })
                 .attr({ title: 'Scroll Back to Top' })
-                .click(function() {
+                .click(function () {
                     mainobj.scrollup();
                     return false;
                 })
                 .appendTo('body');
 
-            $(window).on('scroll resize', function() {
+            $(window).on('scroll resize', function () {
                 mainobj.togglecontrol();
             });
         });
