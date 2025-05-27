@@ -1,8 +1,8 @@
 package ship.iu.controller;
 
+import java.io.IOException;
+
 import jakarta.servlet.RequestDispatcher;
-
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.Cookie;
@@ -10,11 +10,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 import ship.iu.Services.IUserService;
+import ship.iu.Services.Implement.IUserServiceImpl;
 import ship.iu.model.UserModel;
 import ship.iu.utils.Constant;
-import ship.iu.Services.Implement.IUserServiceImpl;
 
 @WebServlet(urlPatterns = { "/login"})
 public class LoginController extends HttpServlet {
@@ -36,7 +35,6 @@ public class LoginController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		// lấy tham số từ views
-		if()
 		String username = request.getParameter("username").trim();
 		String password = request.getParameter("pass").trim();
 		String remember = request.getParameter("remember");

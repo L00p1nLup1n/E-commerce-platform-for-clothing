@@ -25,7 +25,14 @@
         </thead>
         <tbody>
             <c:forEach items="${listcate}" var="cate" varStatus="STT">
-                <tr style="background-color: ${STT.index % 2 == 0 ? '#f9f9f9' : 'white'};">
+                <c:choose>
+                    <c:when test="${STT.index % 2 == 0}">
+                        <tr style="background-color: #f9f9f9;">
+                    </c:when>
+                    <c:otherwise>
+                        <tr style="background-color: white;">
+                    </c:otherwise>
+                </c:choose>
                     <td style="padding: 10px;">${STT.index + 1}</td>
                     <td style="padding: 10px;">
                         <c:choose>
