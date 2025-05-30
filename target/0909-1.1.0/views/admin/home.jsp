@@ -10,120 +10,32 @@
 	<div class="col-md-12 sale-product">
 		<h2>New arrival</h2>
 		<div class="owl-carousel owl-carousel5">
+			<c:forEach var="product" items="${products}">
 			<div>
-				<div class="product-item">
-					<!-- YSS -->
+				<a
+				href="${pageContext.request.contextPath}/products?productid=${product.id}"
+				style="text-decoration: none; color: inherit;"
+				>
+				<div class="product-item" style="cursor: pointer;">
 					<div class="pi-img-wrapper uniform-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/gsport.jpg"
-							class="img-responsive" alt="G-Sport">
+					<c:choose>
+						<c:when test="${product.image != null && product.image.length() >= 5 && product.image.substring(0,5) != 'https'}">
+						<c:url value="/image?fname=${product.image}" var="imgUrl"></c:url>
+						</c:when>
+						<c:otherwise>
+						<c:url value="${product.image}" var="imgUrl"></c:url>
+						</c:otherwise>
+					</c:choose>
+					<img src="${imgUrl}" class="img-responsive "alt="${product.name}" style="max-height: 150px; max-width: 200px;">
 					</div>
-					<h3>
-						<a href="shop-item.html">YSS G-Sport</a>
-					</h3>
-					<div class="pi-price">$129</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
+					<h3>${product.name}</h3>
+					<div class="pi-price">${product.price}</div>
 					<div class="sticker sticker-sale"></div>
 				</div>
+				</a>
 			</div>
-			<div>
-				<div class="product-item">
-					<!-- DNA -->
-					<div class="pi-img-wrapper uniform-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/dna.jpg"
-							class="img-responsive" alt="DNA Filters">
-
-					</div>
-					<h3>
-						<a href="shop-item.html">DNA Filters</a>
-					</h3>
-					<div class="pi-price">$60</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
-				</div>
-			</div>
-			<div>
-				<div class="product-item">
-					<!-- RCB -->
-					<div class="pi-img-wrappe uniform-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/rcb.jpg"
-							class="img-responsive" alt="RCB">
-					</div>
-					<h3>
-						<a href="shop-item.html">RCB S1 Master Brake Pump</a>
-					</h3>
-					<div class="pi-price">$60</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
-				</div>
-			</div>
-			<div>
-
-				<!--  Honda  -->
-				<div class="product-item">
-
-					<div class="pi-img-wrapper uniform-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/honda.jpg"
-							class="img-responsive" alt="Berry Lace Dress">
-					</div>
-					<h3>
-						<a href="#">Honda Spark Plugs</a>
-					</h3>
-					<div class="pi-price">$7</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
-					<div class="sticker sticker-new"></div>
-				</div>
-			</div>
-			<div>
-				<!-- RCB Brake Disc -->
-				<div class="product-item">
-					<div class="pi-img-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/rcbdisc.jpg"
-							class="img-responsive" alt="RCB Brake Rotor">
-
-					</div>
-					<h3>
-						<a href="shop-item.html">RCB Brake Rotor</a>
-					</h3>
-					<div class="pi-price">$50</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
-				</div>
-			</div>
-			<!-- Liqui Moly -->
-			<div>
-				<div class="product-item">
-					<div class="pi-img-wrapper uniform-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/liqui.jpg"
-							class="img-responsive" alt="Liqui Moly Motor Oil">
-
-					</div>
-					<h3>
-						<a href="shop-item.html">Liqui Moly Motor Oil 1L</a>
-					</h3>
-					<div class="pi-price">$15</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
-				</div>
-			</div>
-			<div>
-				<!-- Honda Brake -->
-				<div class="product-item">
-					<div class="pi-img-wrapper uniform-wrapper">
-						<img src="${URL}assets/frontend/pages/img/products/hondabrake.jpg"
-							class="img-responsive" alt="Honda Brake Shoe">
-
-					</div>
-					<h3>
-						<a href="shop-item.html">Honda Brake Shoe</a>
-					</h3>
-					<div class="pi-price">$5</div>
-					<a href="${pageContext.request.contextPath }/login"
-						class="btn btn-default add2cart">Add to cart</a>
-				</div>
-			</div>
-		</div>
+			</c:forEach>
+    </div>
 	</div>
 	<!-- END SALE PRODUCT -->
 </div>

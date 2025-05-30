@@ -7,23 +7,27 @@ function updateCartPreview(data) {
       uniqueCount + " item(s)";
     document.getElementById("cart-price").textContent =
       "$" + parseFloat(totalPrice).toFixed(2);
-    if (!scroller) {
-      console.warn("No .top-cart-content .scroller found");
-      return;
-    }
 
     if (itemsString && itemsString.trim() !== "") {
       const items = itemsString.split(";").filter(Boolean);
       console.log("Items:", items); // Debug log
+      console.log("contextPath:", contextPath); // Debug log
       let html = "";
       items.forEach((item) => {
-        const [name, qty, price] = item.split(",");
+        const [id, name, qty, price] = item.split(",");
         const subtotal = parseFloat(price) * parseInt(qty, 10);
         html += `
-        <li style="display: flex; justify-content: space-around; align-items: center;">
-          <a href="shop-item.html">${name}</a>
-          <div>Quant: ${qty}</div>
-          <div>Price: ${subtotal.toFixed(2)}</div>
+        <li style=" display: flex; justify-content: space-around; align-items: center;">
+          <a href="${contextPath}/products?productid=${id}">${name}</a>
+          <div>Quantity: ${qty}</div>
+          <div>Price:
+          <fmt:formatNumber
+              value="${subtotal}"
+              type="number"
+              minFractionDigits="1"
+              maxFractionDigits="3"
+              />$
+          </div>
         </li>
       `;
       });
@@ -33,7 +37,7 @@ function updateCartPreview(data) {
       <li>
         <span class="cart-content-count"></span>
         <strong>
-          <a href="shop-item.html">No items in cart right now</a>
+          <a href="${contextPath}/Cart">No items in cart right now</a>
         </strong>
       </li>
     `;

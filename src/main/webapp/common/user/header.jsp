@@ -32,7 +32,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
             </c:when>
             <c:otherwise>
               <li>
-                <a href="${pageContext.request.contextPath }/member/myaccount"
+                <a href="${pageContext.request.contextPath}/member/myaccount"
                   >Hello, ${sessionScope.account.fullname }!</a
                 >
               </li>
@@ -66,7 +66,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
       <div class="top-cart-block">
         <div class="top-cart-info">
           <a
-            href="${pageContext.request.contextPath}/Cart"
+            href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/Cart') : pageContext.request.contextPath.concat('/login')}"
             class="top-cart-info-count"
             id="cart-count"
           >
@@ -76,11 +76,12 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
             </c:choose>
             item(s)
           </a>
+
           <a href="javascript:void(0);" class="top-cart-info-value" id="cart-price">
             <c:choose>
               <c:when test="${sessionScope.cart == null || sessionScope.cartItems == 0}">$0</c:when>
               <c:otherwise>
-                $<fmt:formatNumber value="${sessionScope.cartPrice}" type="number" maxFractionDigits="2"/>
+                $<fmt:formatNumber value="${sessionScope.cartPrice}" type="number" minFractionDigits="1" maxFractionDigits="3"/>
               </c:otherwise>
             </c:choose>
           </a>
@@ -89,42 +90,62 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
         <div class="top-cart-content-wrapper">
           <div class="top-cart-content">
             <ul class="scroller" style="height: 250px">
+              <!-- Check if user is logged in and if cart is empty-->
               <c:choose>
-                <c:when test="${not empty sessionScope.cart}">
-                  <c:forEach var="item" items="${sessionScope.cart}">
-                    <li
-                      style="
-                        display: flex;
-                        justify-content: space-around;
-                        align-items: center;
-                      "
-                    >
-                      <a href="shop-item.html">${item.name}</a>
-                      <div>Quantity: ${item.quantity}</div>
-                      <div>
-                        Price:
-                        <fmt:formatNumber
-                          value="${item.getSubtotal()}"
-                          type="number"
-                          maxFractionDigits="2"
-                        />$
-                      </div>
-                    </li>
-                  </c:forEach>
+                <c:when test="${not empty sessionScope.account}">
+                  <c:choose>
+                  <c:when test="${not empty sessionScope.cart}">
+                    <c:forEach var="item" items="${sessionScope.cart}">
+                      <li
+                        style="
+                          display: flex;
+                          justify-content: space-around;
+                          align-items: center;
+                        "
+                      >
+                        <a href="${pageContext.request.contextPath}/products?productid=${item.id}">${item.name}</a>
+                        <div>Quantity: ${item.quantity}</div>
+                        <div>
+                          Price:
+                          <fmt:formatNumber
+                            value="${item.getSubtotal()}"
+                            type="number"
+                            minFractionDigits="1"
+                            maxFractionDigits="3"
+                          />$
+                        </div>
+                      </li>
+                    </c:forEach>
+                    <!-- If cart is empty -->
+                  </c:when>
+                  <c:otherwise>
+                  <li>
+                    <span class="cart-content-count"></span>
+                    <strong>
+                      <a href="${pageContext.request.contextPath}/Cart">No items in cart right now</a>
+                    </strong>
+                  </li>
+                  </c:otherwise>
+                  </c:choose>
                 </c:when>
                 <c:otherwise>
                   <li>
                     <span class="cart-content-count"></span>
                     <strong>
-                      <a href="shop-item.html">No items in cart right now</a>
+                      <a
+                        href="${pageContext.request.contextPath}/login"
+                        style="text-decoration: underline;"
+                        >You must login first!</a
+                      >
                     </strong>
                   </li>
                 </c:otherwise>
               </c:choose>
+
             </ul>
             <div class="text-right">
               <a
-                href="${pageContext.request.contextPath}/Cart"
+                href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/Cart') : pageContext.request.contextPath.concat('/login')}"
                 class="btn btn-default"
                 >View Cart</a
               >
@@ -150,9 +171,9 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
         <li class="menu-search">
           <span class="sep"></span> <i class="fa fa-search search-btn"></i>
           <div class="search-box">
-            <form action="#">
+            <form action="${pageContext.request.contextPath}/search" method="get">
               <div class="input-group">
-                <input type="text" placeholder="Search" class="form-control" />
+                <input type="text" name="query" placeholder="Search" class="form-control" required autofocus/>
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="submit">Search</button>
                 </span>

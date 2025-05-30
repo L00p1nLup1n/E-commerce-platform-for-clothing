@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
           <c:choose>
             <c:when test="${sessionScope.account == null }">
               <li>
-                <a href="${pageContext.request.contextPath }/login">Login </a>
+                <a href="${pageContext.request.contextPath}/login">Login </a>
               </li>
               <li>
                 <a href="${pageContext.request.contextPath }/register"
@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
 <!-- BEGIN HEADER -->
 <div class="header">
   <div class="container">
-    <a class="site-logo" href="${pageContext.request.contextPath}/home"
+    <a class="site-logo" href="${sessionScope.account != null ? pageContext.request.contextPath.concat('users/home') : pageContext.request.contextPath.concat('/home')}"
       ><img
         src="${URL}/assets/frontend/layout/img/logos/iu_store_logo.png"
         alt="IU SHOP UI"
@@ -65,7 +65,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
     <div class="top-cart-block">
       <div class="top-cart-info">
         <a
-          href="#"
+          href="${pageContext.request.contextPath}/login"
           class="top-cart-info-count"
         >
           <c:choose>
@@ -84,7 +84,8 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
               >$<fmt:formatNumber
                 value="${sessionScope.cartPrice}"
                 type="number"
-                maxFractionDigits="2"
+                minFractionDigits="1"
+                maxFractionDigits="3"
             /></c:otherwise>
           </c:choose>
         </a>
@@ -93,38 +94,12 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
       <div class="top-cart-content-wrapper">
         <div class="top-cart-content">
           <ul class="scroller" style="height: 250px">
-            <c:choose>
-              <c:when test="${not empty sessionScope.cart}">
-                <c:forEach var="item" items="${sessionScope.cart}">
-                  <li
-                    style="
-                      display: flex;
-                      justify-content: space-around;
-                      align-items: center;
-                    "
-                  >
-                    <a href="shop-item.html">${item.name}</a>
-                    <div>Quantity: ${item.quantity}</div>
-                    <div>
-                      Price:
-                      <fmt:formatNumber
-                        value="${item.getSubtotal()}"
-                        type="number"
-                        maxFractionDigits="2"
-                      />$
-                    </div>
-                  </li>
-                </c:forEach>
-              </c:when>
-              <c:otherwise>
-                <li>
-                  <span class="cart-content-count"></span>
-                  <strong>
-                    <a href="${pageContext.request.contextPath}/login" style="text-decoration: underline;";">You must login first!</a>
-                  </strong>
-                </li>
-              </c:otherwise>
-            </c:choose>
+            <li>
+              <span class="cart-content-count"></span>
+              <strong>
+                <a href="${pageContext.request.contextPath}/login" style="text-decoration: underline;";">You must login first!</a>
+              </strong>
+            </li>
           </ul>
           <div class="text-right">
             <a
@@ -153,9 +128,9 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
         <li class="menu-search">
           <span class="sep"></span> <i class="fa fa-search search-btn"></i>
           <div class="search-box">
-            <form action="#">
+            <form action="${pageContext.request.contextPath}/search" method="get">
               <div class="input-group">
-                <input type="text" placeholder="Search" class="form-control" />
+                <input type="text" name="query" placeholder="Search" class="form-control" required autofocus/>
                 <span class="input-group-btn">
                   <button class="btn btn-primary" type="submit">Search</button>
                 </span>

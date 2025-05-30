@@ -26,6 +26,37 @@ li {
   -moz-border-radius: 0 ;
   border-radius: 0 ;
 }
+.dropdown-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 10px;
+    min-width: 120px;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 8px;
+    text-align: left;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+}
 
 /* except below bootstrap elements */
 .img-circle {
@@ -1500,6 +1531,12 @@ Customized Bootstrap Buttons
 /***
 Image Carousel
 ***/
+.carousel-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+    gap: 10px; /* Adds spacing */
+}
+
 .carousel.image-carousel .carousel-inner {
   padding-top: 0;
   padding-bottom: 0;
@@ -1782,7 +1819,7 @@ Dropdown Menu
   text-shadow: none;
   padding: 0px;
   margin: 10px  0px 0px 0px;
-  background-color: #fffff;
+  background-color: #ffffff;
   box-shadow: 5px 5px rgba(102, 102, 102, 0.1);
   border: 1px solid #eee;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

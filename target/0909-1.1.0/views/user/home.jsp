@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@include file="/common/taglib.jsp"%>
 <c:url value="/" var="URL"></c:url>
 <%@ include file="/common/web/slider.jsp"%>
 <!-- BEGIN SALE PRODUCT & NEW ARRIVALS -->
@@ -8,205 +8,33 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
   <div class="col-md-12 sale-product">
     <h2>New arrival</h2>
     <div class="owl-carousel owl-carousel5">
+      <c:forEach var="product" items="${products}">
       <div>
-        <div class="product-item">
-          <!-- YSS -->
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/gsport.jpg"
-              class="img-responsive"
-              alt="G-Sport"
-            />
+        <a
+          href="${pageContext.request.contextPath}/products?productid=${product.id}"
+          style="text-decoration: none; color: inherit;"
+        >
+          <div class="product-item" style="cursor: pointer;">
+            <div class="pi-img-wrapper uniform-wrapper">
+              <c:choose>
+                <c:when test="${product.image != null && product.image.length() >= 5 && product.image.substring(0,5) != 'https'}">
+                   <c:url value="/image?fname=${product.image}" var="imgUrl"></c:url>
+                </c:when>
+                <c:otherwise>
+                   <c:url value="${product.image}" var="imgUrl"></c:url>
+                </c:otherwise>
+              </c:choose>
+              <img src="${imgUrl}" class="img-responsive "alt="${product.name}" style="max-height: 150px; max-width: 200px;">
+            </div>
+            <h3>${product.name}</h3>
+            <div class="pi-price">${product.price}</div>
+            <div class="sticker sticker-sale"></div>
           </div>
-          <h3>
-            <a href="shop-item.html">YSS G-Sport</a>
-          </h3>
-          <div class="pi-price">$129.99</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="1" />
-            <input type="hidden" name="productName" value="YSS G-Sport" />
-            <input type="hidden" name="productPrice" value="129.99" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-          <div class="sticker sticker-sale"></div>
-        </div>
+        </a>
       </div>
-      <div>
-        <div class="product-item">
-          <!-- DNA -->
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/dna.jpg"
-              class="img-responsive"
-              alt="DNA Filters"
-            />
-          </div>
-          <h3>
-            <a href="shop-item.html">DNA Filters</a>
-          </h3>
-          <div class="pi-price">$60</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="2" />
-            <input type="hidden" name="productName" value="DNA Filters" />
-            <input type="hidden" name="productPrice" value="60" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-        </div>
-      </div>
-      <div>
-        <div class="product-item">
-          <!-- RCB -->
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/rcb.jpg"
-              class="img-responsive"
-              alt="RCB"
-            />
-          </div>
-          <h3>
-            <a href="shop-item.html">RCB S1 Master Brake Pump</a>
-          </h3>
-          <div class="pi-price">$60</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="3" />
-            <input type="hidden" name="productName" value="RCB S1 Master Brake Pump" />
-            <input type="hidden" name="productPrice" value="60" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-        </div>
-      </div>
-      <div>
-        <!--  Honda  -->
-        <div class="product-item">
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/honda.jpg"
-              class="img-responsive"
-              alt="Honda Spark Plugs"
-            />
-          </div>
-          <h3>
-            <a href="#">Honda Spark Plugs</a>
-          </h3>
-          <div class="pi-price">$7</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="4" />
-            <input type="hidden" name="productName" value="Honda Spark Plugs" />
-            <input type="hidden" name="productPrice" value="7" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-          <div class="sticker sticker-new"></div>
-        </div>
-      </div>
-      <div>
-        <!-- RCB Brake Disc -->
-        <div class="product-item">
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/rcbdisc.jpg"
-              class="img-responsive"
-              alt="RCB Brake Rotor"
-            />
-          </div>
-          <h3>
-            <a href="shop-item.html">RCB Brake Rotor</a>
-          </h3>
-          <div class="pi-price">$50</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="5" />
-            <input type="hidden" name="productName" value="RCB Brake Rotor" />
-            <input type="hidden" name="productPrice" value="50" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-        </div>
-      </div>
-      <div>
-        <!-- Liqui Moly -->
-        <div class="product-item">
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/liqui.jpg"
-              class="img-responsive"
-              alt="Liqui Moly Motor Oil"
-            />
-          </div>
-          <h3>
-            <a href="shop-item.html">Liqui Moly Motor Oil 1L</a>
-          </h3>
-          <div class="pi-price">$15</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="6" />
-            <input type="hidden" name="productName" value="Liqui Moly Motor Oil 1L" />
-            <input type="hidden" name="productPrice" value="15" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-        </div>
-      </div>
-      <div>
-        <!-- Honda Brake -->
-        <div class="product-item">
-          <div class="pi-img-wrapper uniform-wrapper">
-            <img
-              src="${URL}assets/frontend/pages/img/products/hondabrake.jpg"
-              class="img-responsive"
-              alt="Honda Brake Shoe"
-            />
-          </div>
-          <h3>
-            <a href="shop-item.html">Honda Brake Shoe</a>
-          </h3>
-          <div class="pi-price">$5</div>
-          <form
-            action="${pageContext.request.contextPath}/Cart"
-            onsubmit="return addToCart(event);"
-          >
-            <input type="hidden" name="action" value="add" />
-            <input type="hidden" name="productId" value="7" />
-            <input type="hidden" name="productName" value="Honda Brake Shoe" />
-            <input type="hidden" name="productPrice" value="5" />
-            <button type="submit" class="btn btn-default add2cart">
-              Add to Cart
-            </button>
-          </form>
-        </div>
-      </div>
+      </c:forEach>
     </div>
+    
 </div>
   <!-- END SALE PRODUCT -->
 </div>

@@ -46,6 +46,7 @@
 				width: img.width * magnify,
 				height: img.height * magnify,
 				border: 'none',
+				
 				maxWidth: 'none'
 			})
 			.appendTo(target);

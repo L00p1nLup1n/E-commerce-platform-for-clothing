@@ -208,6 +208,10 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
       src="${URL}assets/global/scripts/bfCacheReload.js"
       type="text/javascript"
 	></script>
+  	<script
+	  src="${URL}assets/global/scripts/loginNotification.js"
+	  type="text/javascript"
+	></script>
     <!-- END PAGE LEVEL JAVASCRIPTS -->
   </body>
   <!-- END BODY -->

@@ -18,4 +18,5 @@ public interface IUserService {
 	boolean checkExistPhone(String phone);
 
 	UserModel findPassword(String username, String password);
+
 }

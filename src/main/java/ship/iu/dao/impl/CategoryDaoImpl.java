@@ -9,9 +9,6 @@ import java.util.List;
 import ship.iu.controller.DBconnectionSQL;
 import ship.iu.dao.ICategoryDao;
 import ship.iu.model.CategoryModel;
-import ship.iu.model.UserModel;
-
-import java.sql.Connection;
 
 public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
 	public Connection conn = null;
@@ -21,7 +18,7 @@ public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
 	@Override
 	public List<CategoryModel> findAll() {
 		String sql = "SELECT * FROM product";
-		List<CategoryModel> list = new ArrayList();
+		List<CategoryModel> list = new ArrayList<>();
 		try {
 			conn = super.getConn();
 			ps = conn.prepareStatement(sql);

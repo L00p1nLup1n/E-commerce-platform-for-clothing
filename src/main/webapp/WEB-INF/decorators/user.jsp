@@ -63,6 +63,8 @@
 
 <!-- Theme styles START -->
 <link href="${URL}assets/global/css/components.css" rel="stylesheet">
+<link href="${URL}assets/global/css/star-rating.css" rel="stylesheet">
+
 <link href="${URL}assets/frontend/layout/css/style.css" rel="stylesheet">
 <link href="${URL}assets/frontend/pages/css/style-shop.css"
 	rel="stylesheet" type="text/css">
@@ -181,8 +183,8 @@
       type="text/javascript"
     ></script>
 	<script
-      src="${URL}assets/global/scripts/addToCart.js"
-      type="text/javascript"
+	  src="${URL}assets/global/scripts/loginNotification.js"
+	  type="text/javascript"
 	></script>
 	<!-- END PAGE LEVEL JAVASCRIPTS -->
 </body>

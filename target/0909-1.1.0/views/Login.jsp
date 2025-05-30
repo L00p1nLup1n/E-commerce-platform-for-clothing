@@ -32,7 +32,7 @@
 						<div class="col-lg-8">
 							<input type="password" class="form-control" id="password"
 								name="pass" required> <input type="checkbox"
-								checked="checked" name="remember"> Remember me
+							 	name="remember"> Remember me
 						</div>
 					</div>
 					<div class="row">

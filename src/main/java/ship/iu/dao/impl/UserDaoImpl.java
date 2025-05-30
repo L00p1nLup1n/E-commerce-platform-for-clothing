@@ -9,7 +9,6 @@ import ship.iu.controller.DBconnectionSQL;
 import ship.iu.dao.IUserDao;
 import ship.iu.model.UserModel;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class UserDaoImpl extends DBconnectionSQL implements IUserDao {
 	public Connection conn = null;
