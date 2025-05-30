@@ -77,36 +77,17 @@ public class ItemDetailController extends HttpServlet {
             } catch (NumberFormatException e) {
                 response.sendRedirect(request.getContextPath() + "/products");
             }
-        } else if ("editReview".equals(action)){
-            try {
-                int productId = Integer.parseInt(request.getParameter("productid"));
-                String comment = request.getParameter("comment");
-                int rating = Integer.parseInt(request.getParameter("rating"));
-
-                ReviewModel review = new ReviewModel(productId, user.getId(), user.getUsername(), rating, comment, new Date());
-                reviewService.addReview(review);
-
-                // Retrieve updated product instance
-                ProductModel product = productService.findProductById(productId);
-                request.setAttribute("product", product);
-                request.setAttribute("reviews", reviewService.getReviewsByProductId(productId));
-
-                // Forward to display updated product details
-                request.getRequestDispatcher("/views/ItemDetails.jsp").forward(request, response);
-
-            } catch (NumberFormatException e) {
-                response.sendRedirect(request.getContextPath() + "/products");
-            }
         } else if ("deleteReview".equals(action)){
             try {
                 int productId = Integer.parseInt(request.getParameter("productid"));
+                int reviewId = Integer.parseInt(request.getParameter("reviewId"));
                 List<ReviewModel> reviews = reviewService.getReviewsByProductId(productId);
 
-                // Find and remove the product
+                // Find and remove the review in the product detail
                 Iterator<ReviewModel> iterator = reviews.iterator();
                 while (iterator.hasNext()) {
                     ReviewModel review = iterator.next();
-                    if (review.getproductId() == productId) {
+                    if (review.getId() == reviewId) {
                         reviewService.deleteReview(review);
                         iterator.remove();
                         break;
