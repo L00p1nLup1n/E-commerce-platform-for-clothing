@@ -35,8 +35,8 @@
                         </div>
                     </div>
                         <div style="margin-left: 20px">
-                            <h3>SHIRT</h3>
-                            <div class="pi-price">130.0</div>
+                            <h3>${product.name}</h3>
+                            <div class="pi-price">${product.price}</div>
                         </div>
                         <div class="sticker sticker-sale"></div>
                     </a>

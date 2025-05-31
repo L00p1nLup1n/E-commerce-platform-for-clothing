@@ -8,6 +8,7 @@ public interface ICategoryDao {
  List<CategoryModel> findAll();
  CategoryModel findById(int id);
  CategoryModel findByname(String name);
+ String getCategoryNameById(int categoryid);
  void insert(CategoryModel category);
  void update(CategoryModel category);
  void delete(int id);

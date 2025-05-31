@@ -25,6 +25,9 @@ public class CategoryServiceImpl implements ICategoryService {
 		return dao.findByname(name);
 	}
 
+	public String getCategoryNameById(int categoryid){
+		return dao.getCategoryNameById(categoryid);
+	}
 	@Override
 	public void insert(CategoryModel category) {
 		CategoryModel cate = this.findByname(category.getCategoryname());

@@ -22,16 +22,17 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
     <!-- Product Details -->
     <div class="col-md-6">
       <h2>${product.name}</h2>
-      <div class="text-muted">${product.categoryname}</div>
+      <div class="text-muted">${categoryname}</div>
       <div class="product-rating margin-bottom-10">
-        <fmt:formatNumber value="${product.avgRating}" type="number" maxFractionDigits="0" var="roundedRating"/>
-          <c:forEach var="i" begin="1" end="${roundedRating}">
-            <span class="fa fa-star" style="color: gold"></span>
-          </c:forEach>
-          <c:forEach var="i" begin="${roundedRating + 1}" end="5">
-            <span class="fa fa-star-o" style="color: #dcdce6"></span>
-          </c:forEach> 
-          <span class="text-muted">(${roundedRating})</span>
+        <fmt:formatNumber value="${product.avgRating}" type="number" maxFractionDigits="1" var="averageRating"/>
+        <c:set var="roundedRating" value="${Math.floor(product.avgRating)}" />
+         <c:forEach var="i" begin="1" end="${roundedRating}">
+           <span class="fa fa-star" style="color: gold"></span>
+         </c:forEach>
+         <c:forEach var="i" begin="${roundedRating + 1}" end="5">
+           <span class="fa fa-star-o" style="color: #dcdce6"></span>
+         </c:forEach>
+        <span class="text-muted">(${averageRating})</span>
       </div>
       <div class="goods-page-price" style="color: #e74c3c">
         <strong>Price:
@@ -86,7 +87,7 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
         </c:choose>
       </form>
       <div class="margin-top-20">
-        <button class="btn btn-default">
+        <button class="btn btn-success" onclick="copyUrl()">
           <i class="fa fa-share" style="color: red"></i> Share
         </button>
       </div>
@@ -123,42 +124,49 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
           </p>
         </div>
         <div class="tab-pane" id="reviews">
-          <c:forEach var="review" items="${reviews}">
-            <div class="border-bottom margin-bottom-10 padding-bottom-10" style="display: flex; justify-content: space-between;">
-              <div class="review-content" style="flex: 1">
-              <strong>${review.username}</strong>
-              <span class="text-muted">- ${review.reviewDate}</span>
-              <div class="product-rating margin-bottom-10">
-                <c:forEach var="i" begin="1" end="${review.rating}">
-                  <span class="fa fa-star" style="color: gold"></span>
-                </c:forEach>
-                <c:forEach var="i" begin="${review.rating + 1}" end="5">
-                  <span class="fa fa-star-o" style="color: #dcdce6"></span>
-                </c:forEach> 
-              </div>    
-              <p>${review.comment}</p>
-              </div>
-              <div class="review-action" style="flex: 0 0 auto">
-                <c:if test="${sessionScope.account.username == review.username}">
-                  <form
-                    action="${pageContext.request.contextPath}/products?productid=${product.id}"
-                    method="post"
-                    class="margin-top-10"
-                    onsubmit="return confirm('Are you sure you want to delete this review?')"
-                  >
-                    <input type="hidden" name="action" value="deleteReview" />
-                    <input type="hidden" name="reviewId" value="${review.id}" />
-                    <button type="submit" class="btn btn-danger btn-xs">
-                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </button>
-                  </form>
-                </c:if>
-              </div>
-            </div>
-          </c:forEach>
+          <c:choose>
+            <c:when test="${not empty reviews}">
+              <c:forEach var="review" items="${reviews}">
+                <div class="border-bottom margin-bottom-10 padding-bottom-10" style="display: flex; justify-content: space-between;">
+                  <div class="review-content" style="flex: 1">
+                  <strong>${review.username}</strong>
+                  <span class="text-muted">- ${review.reviewDate}</span>
+                  <div class="product-rating margin-bottom-10">
+                    <c:forEach var="i" begin="1" end="${review.rating}">
+                      <span class="fa fa-star" style="color: gold"></span>
+                    </c:forEach>
+                    <c:forEach var="i" begin="${review.rating + 1}" end="5">
+                      <span class="fa fa-star-o" style="color: #dcdce6"></span>
+                    </c:forEach> 
+                  </div>    
+                  <p>${review.comment}</p>
+                  </div>
+                  <div class="review-action" style="flex: 0 0 auto">
+                    <c:if test="${sessionScope.account.username == review.username}">
+                      <form
+                        action="${pageContext.request.contextPath}/products?productid=${product.id}"
+                        method="post"
+                        class="margin-top-10"
+                        onsubmit="return confirm('Are you sure you want to delete this review?')"
+                      >
+                        <input type="hidden" name="action" value="deleteReview" />
+                        <input type="hidden" name="reviewId" value="${review.id}" />
+                        <button type="submit" class="btn btn-danger btn-xs">
+                          <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                      </form>
+                    </c:if>
+                  </div>
+                </div>
+              </c:forEach>
+            </c:when>
+            <c:otherwise>
+              <h4><i class="fa fa-comments" aria-hidden="true" style="margin-right: 20px;"></i><i>No reviews yet! Be the first to share your experiences.</i></h4>
+            </c:otherwise>
+          </c:choose>
           <c:choose>
           <c:when test="${not empty sessionScope.account}">
-            <hr style="color: black;">
+            <hr style="border-top: 1px solid #e74c3c;">
             <h4>Write a Review</h4>
             <form
               action="${pageContext.request.contextPath}/products?productid=${product.id}"
@@ -194,7 +202,7 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
             </form>
           </c:when>
           <c:otherwise>
-            <hr style="color: black;">
+            <hr style="border-top: 1px solid #e74c3c;">
             <p>If you would like to leave a review, please <a href="${pageContext.request.contextPath}/login">login.</a></p>
           </c:otherwise>
           </c:choose>
@@ -207,6 +215,7 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
   const contextPath = "${pageContext.request.contextPath}";
 </script>
 <script src="${URL}assets/global/scripts/addToCart.js" type="text/javascript"></script>
+<script src="${URL}assets/global/scripts/shareURL.js" type="text/javascript"></script>
 <script src="${URL}assets/global/scripts/updateCartPreview.js" type="text/javascript"></script>
 <script src="${URL}assets/global/scripts/star-rating.js"></script>
 <script>

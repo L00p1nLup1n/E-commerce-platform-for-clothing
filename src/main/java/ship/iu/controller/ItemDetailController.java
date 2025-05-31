@@ -11,10 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import ship.iu.Services.ICategoryService;
 import ship.iu.Services.IProductService;
 import ship.iu.Services.IReviewService;
+import ship.iu.Services.Implement.CategoryServiceImpl;
 import ship.iu.Services.Implement.ProductServiceImpl;
 import ship.iu.Services.Implement.ReviewServiceImpl;
+import ship.iu.model.CategoryModel;
 import ship.iu.model.ProductModel;
 import ship.iu.model.ReviewModel;
 import ship.iu.model.UserModel;
@@ -24,19 +27,21 @@ public class ItemDetailController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final IProductService productService = new ProductServiceImpl();
     private final IReviewService reviewService = new ReviewServiceImpl();
-
+    private final ICategoryService categoryService = new CategoryServiceImpl();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             int productId = Integer.parseInt(request.getParameter("productid"));   
             ProductModel product = productService.findProductById(productId);
             List<ReviewModel> reviews = reviewService.getReviewsByProductId(productId);
+            String categoryname = categoryService.getCategoryNameById(productId);
             if (product == null) {
                 response.sendRedirect(request.getContextPath() + "/home");
                 return;
             }
-            System.out.println("The current category is: "+product.getCategoryname());
+            System.out.println("The current category is: "+ categoryname);
             request.setAttribute("product", product);
+            request.setAttribute("categoryname", categoryname);
             request.setAttribute("reviews", reviews);
             
             // Forward to the item details page

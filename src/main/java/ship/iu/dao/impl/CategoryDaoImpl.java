@@ -175,4 +175,21 @@ public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
 
 	}
 
+	public String getCategoryNameById(int categoryId) {
+		String sql = "SELECT categoryname FROM categories WHERE categoryid = ?;";
+		try (Connection conn = super.getConn();
+			PreparedStatement ps = conn.prepareStatement(sql)) {
+			ps.setInt(1, categoryId);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					return rs.getString("categoryname");
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+
 }

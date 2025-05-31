@@ -64,7 +64,7 @@ public class CartController extends HttpServlet {
             if ("add".equals(action)) {
                 // Add a product to the cart
                 int productId = Integer.parseInt(request.getParameter("productId"));
-                String categoryname = request.getParameter("categoryName");
+                int categoryid = Integer.parseInt(request.getParameter("categoryId"));
                 String productName = request.getParameter("productName");
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
                 double productPrice = Double.parseDouble(request.getParameter("productPrice"));
@@ -82,7 +82,7 @@ public class CartController extends HttpServlet {
 
                 // If not found, add a new product
                 if (!found) {
-                    ProductModel newProduct = new ProductModel(productId, categoryname, productName, image , 1, productPrice, productDescription, quantity, 0, 0.0);
+                    ProductModel newProduct = new ProductModel(productId, categoryid, productName, image , 1, productPrice, productDescription, quantity, 0, 0.0);
                     cart.add(newProduct);
                 }
 

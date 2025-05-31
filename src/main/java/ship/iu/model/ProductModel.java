@@ -8,7 +8,7 @@ public class ProductModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id;
-    private String categoryname;
+    private int categoryid;
     private String name;
     private String image;
     private int status; // 0: inactive, 1: active
@@ -21,9 +21,9 @@ public class ProductModel implements Serializable {
     public ProductModel() {
     }
 
-    public ProductModel(int id, String categoryname, String name, String image, int status, double price, String description, int quantity, int reviewcount, double avgRating) {
+    public ProductModel(int id, int categoryid, String name, String image, int status, double price, String description, int quantity, int reviewcount, double avgRating) {
         this.id = id;
-        this.categoryname = categoryname;
+        this.categoryid = categoryid;
         this.name = name;
         this.image = image;
         this.status = status;
@@ -41,12 +41,12 @@ public class ProductModel implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
-    public String getCategoryname() {
-        return categoryname;
+    public int getCategoryid() {
+        return categoryid;
     }
 
-    public void setCategoryname(String categoryname) {
-        this.categoryname = categoryname;
+    public void setCategoryid(int categoryid) {
+        this.categoryid = categoryid;
     }
 
     public String getImage() {
@@ -142,6 +142,6 @@ public class ProductModel implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, categoryname, name, image, status, price, description, quantity, reviewcount, avgRating);
+        return Objects.hash(id, categoryid, name, image, status, price, description, quantity, reviewcount, avgRating);
     }
 }

@@ -11,6 +11,8 @@ public interface ICategoryService {
 
 	CategoryModel findByname(String name);
 
+	String getCategoryNameById(int categoryid);
+
 	void insert(CategoryModel category);
 
 	void update(CategoryModel category);
