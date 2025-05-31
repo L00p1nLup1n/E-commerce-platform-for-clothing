@@ -148,7 +148,7 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
     }
 
     public List<ProductModel> searchProducts(String keyword) {
-        String sql = "SELECT * FROM product WHERE p.productname LIKE ?;";
+        String sql = "SELECT * FROM product WHERE productname LIKE ?;";
         List<ProductModel> list = new ArrayList<>();
         try (Connection conn = super.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -51,7 +51,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
 <!-- BEGIN HEADER -->
 <div class="header">
   <div class="container">
-    <a class="site-logo" href="${sessionScope.account != null ? pageContext.request.contextPath.concat('users/home') : pageContext.request.contextPath.concat('/home')}"
+    <a class="site-logo" href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/home')}"
       ><img
         src="${URL}/assets/frontend/layout/img/logos/iu_store_logo.png"
         alt="IU SHOP UI"
@@ -116,13 +116,13 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
     <!-- BEGIN NAVIGATION -->
     <div class="header-navigation">
       <ul>
-        <li><a> Home </a></li>
-        <li><a> Suspensions </a></li>
-        <li><a> Filters </a></li>
-        <li><a> Spark plugs </a></li>
-        <li><a> Tires </a></li>
-        <li><a> Brakes </a></li>
-        <li><a> Services </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/home')}"> Home </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Kids')}"> Kids </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Men')}"> Men </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Women')}"> Women </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Unisex')}"> Unisex </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Outerwear')}"> Outerwear </a></li>
+        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Business')}"> Business </a></li>
 
         <!-- BEGIN TOP SEARCH -->
         <li class="menu-search">

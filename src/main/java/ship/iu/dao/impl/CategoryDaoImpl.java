@@ -4,7 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import ship.iu.controller.DBconnectionSQL;
 import ship.iu.dao.ICategoryDao;
@@ -14,6 +16,8 @@ public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
 	public Connection conn = null;
 	public PreparedStatement ps = null;
 	public ResultSet rs = null;
+	private static final Map<Integer, String> idToNameMap = new HashMap<>();
+    private static final Map<String, Integer> nameToIdMap = new HashMap<>();
 
 	@Override
 	public List<CategoryModel> findAll() {
@@ -175,21 +179,27 @@ public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
 
 	}
 
+	 public void loadCategories() {
+        String sql = "SELECT categoryid, categoryname FROM categories;";
+        try (Connection conn = super.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("categoryid");
+                String name = rs.getString("categoryname");
+                idToNameMap.put(id, name);
+                nameToIdMap.put(name.toLowerCase(), id);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 	public String getCategoryNameById(int categoryId) {
-		String sql = "SELECT categoryname FROM categories WHERE categoryid = ?;";
-		try (Connection conn = super.getConn();
-			PreparedStatement ps = conn.prepareStatement(sql)) {
-			ps.setInt(1, categoryId);
-			try (ResultSet rs = ps.executeQuery()) {
-				if (rs.next()) {
-					return rs.getString("categoryname");
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+        return idToNameMap.containsKey(categoryId) ? idToNameMap.get(categoryId) : null;
+    }
 
+	public Integer getCategoryIdByName(String categoryName) {
+		return nameToIdMap.containsKey(categoryName.toLowerCase()) ? nameToIdMap.get(categoryName.toLowerCase()) : null;
+	}
 
 }

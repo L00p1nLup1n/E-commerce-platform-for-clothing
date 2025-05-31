@@ -5,6 +5,8 @@ import java.util.List;
 import ship.iu.model.CategoryModel;
 
 public interface ICategoryService {
+	void loadCategories();
+
 	List<CategoryModel> findAll();
 
 	CategoryModel findById(int id);
@@ -12,6 +14,8 @@ public interface ICategoryService {
 	CategoryModel findByname(String name);
 
 	String getCategoryNameById(int categoryid);
+	
+	Integer getCategoryIdByName(String categoryname);
 
 	void insert(CategoryModel category);
 

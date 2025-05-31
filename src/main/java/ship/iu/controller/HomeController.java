@@ -8,6 +8,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ship.iu.Services.ICategoryService;
+import ship.iu.Services.IProductService;
+import ship.iu.Services.Implement.CategoryServiceImpl;
 import ship.iu.Services.Implement.ProductServiceImpl;
 import ship.iu.model.ProductModel;
 
@@ -15,11 +18,16 @@ import ship.iu.model.ProductModel;
 public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private ProductServiceImpl productService = new ProductServiceImpl();
+	private IProductService productService = new ProductServiceImpl();
+	private ICategoryService categoryService = new CategoryServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		List<ProductModel> products = productService.findAllProducts();
+		if (categoryService.getCategoryNameById(1) == null) {
+				categoryService.loadCategories();
+				System.out.println("Categories loaded on first access.");
+			}
 	    req.setAttribute("products", products);
 
 		req.getRequestDispatcher("/views/Home.jsp").forward(req, resp);

@@ -11,6 +11,11 @@ public class CategoryServiceImpl implements ICategoryService {
 	public ICategoryDao dao = new CategoryDaoImpl();
 
 	@Override
+	public void loadCategories(){
+		dao.loadCategories();
+	}
+
+	@Override
 	public List<CategoryModel> findAll() {
 		return dao.findAll();
 	}
@@ -25,9 +30,6 @@ public class CategoryServiceImpl implements ICategoryService {
 		return dao.findByname(name);
 	}
 
-	public String getCategoryNameById(int categoryid){
-		return dao.getCategoryNameById(categoryid);
-	}
 	@Override
 	public void insert(CategoryModel category) {
 		CategoryModel cate = this.findByname(category.getCategoryname());
@@ -55,5 +57,13 @@ public class CategoryServiceImpl implements ICategoryService {
 	public void updateStatus(int id, int status) {
 		dao.updateStatus(id, status);
 	}
-
+	
+	public String getCategoryNameById(int categoryid){
+		return dao.getCategoryNameById(categoryid);
+	}
+	
+	public Integer getCategoryIdByName(String categoryname){
+		return dao.getCategoryIdByName(categoryname);
+	}
 }
+
