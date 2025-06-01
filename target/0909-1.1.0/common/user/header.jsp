@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
             <c:otherwise>
               <li>
                 <a href="${pageContext.request.contextPath}/member/myaccount"
-                  >Hello, ${sessionScope.account.fullname }!</a
+                  >Hello, ${sessionScope.account.fullname}!</a
                 >
               </li>
               <li>
@@ -88,7 +88,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
         </div>
         <i class="fa fa-shopping-cart"></i>
         <div class="top-cart-content-wrapper">
-          <div class="top-cart-content">
+          <div class="top-cart-content" style="width: 550px; border: 1px solid grey">
             <ul class="scroller" style="height: 250px">
               <!-- Check if user is logged in and if cart is empty-->
               <c:choose>
@@ -103,7 +103,9 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
                           align-items: center;
                         "
                       >
-                        <a href="${pageContext.request.contextPath}/products?productid=${item.id}">${item.name}</a>
+                        <c:set var="itemName" value="${fn:length(item.name) > 20 ? fn:substring(item.name, 0, 20) : item.name}" />
+                        <c:set var="itemName" value="${fn:length(item.name) > 20 ? itemName.concat('...') : itemName}" />
+                        <a href="${pageContext.request.contextPath}/products?productid=${item.id}">${itemName}</a>
                         <div>Quantity: ${item.quantity}</div>
                         <div>
                           Price:
@@ -146,7 +148,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
             <div class="text-right">
               <a
                 href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/Cart') : pageContext.request.contextPath.concat('/login')}"
-                class="btn btn-default"
+                class="btn btn-primary"
                 >View Cart</a
               >
             </div>
@@ -160,12 +162,12 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
     <div class="header-navigation">
       <ul>
         <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/home')}"> Home </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Kids')}"> Kids </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Men')}"> Men </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Women')}"> Women </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Unisex')}"> Unisex </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Outerwear')}"> Outerwear </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Business')}"> Business </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Kids"> Kids </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Men"> Men </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Women"> Women </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Unisex"> Unisex </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Outerwear"> Outerwear </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Business"> Business </a></li>
 
         <!-- BEGIN TOP SEARCH -->
         <li class="menu-search">

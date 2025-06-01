@@ -34,7 +34,7 @@ var scrolltotop = {
             var mainobj = scrolltotop;
 
             // Dynamically set the controlHTML with proper URL
-            var imgSrc = 'http://localhost:8080/0909/assets/frontend/layout/img/up.png'; // Adjust the path as necessary
+            var imgSrc = "http://localhost:8080/0909-1.1.0/assets/frontend/layout/img/up.png"; // Adjust the path as necessary
             mainobj.controlHTML = `<img src="${imgSrc}" style="width:40px; height:40px" alt="Back to Top" />`;
 
             mainobj.cssfixedsupport = true; // Assume modern browsers

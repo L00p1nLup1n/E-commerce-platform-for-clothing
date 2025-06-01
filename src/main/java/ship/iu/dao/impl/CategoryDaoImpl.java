@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
 
 	@Override
 	public List<CategoryModel> findAll() {
-		String sql = "SELECT * FROM product";
+		String sql = "SELECT * FROM categories";
 		List<CategoryModel> list = new ArrayList<>();
 		try {
 			conn = super.getConn();
@@ -194,12 +195,15 @@ public class CategoryDaoImpl extends DBconnectionSQL implements ICategoryDao {
             e.printStackTrace();
         }
     }
-	public String getCategoryNameById(int categoryId) {
-        return idToNameMap.containsKey(categoryId) ? idToNameMap.get(categoryId) : null;
-    }
 
-	public Integer getCategoryIdByName(String categoryName) {
-		return nameToIdMap.containsKey(categoryName.toLowerCase()) ? nameToIdMap.get(categoryName.toLowerCase()) : null;
+	public Map<String, Integer> getCategoryNametoIdMap() {
+		return Collections.unmodifiableMap(nameToIdMap);
 	}
+
+
+	public Map<Integer, String> getCategoryIdtoNameMap() {
+		return Collections.unmodifiableMap(idToNameMap);
+	}
+
 
 }

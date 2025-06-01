@@ -15,7 +15,7 @@ import ship.iu.Services.Implement.CategoryServiceImpl;
 import ship.iu.Services.Implement.ProductServiceImpl;
 import ship.iu.model.ProductModel;
 
-@WebServlet(urlPatterns = { "/search" })
+@WebServlet(urlPatterns = { "/admin/search" , "/search" })
 public class SearchController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     IProductService productService = new ProductServiceImpl();
@@ -33,7 +33,9 @@ public class SearchController extends HttpServlet {
             System.out.println("Search query: " + query);
         } else if (categoryName != null && !categoryName.trim().isEmpty()) {
             // Convert category name to category ID before searching
-            Integer categoryId = categoryService.getCategoryIdByName(categoryName);
+            System.out.println("Category Map: " + categoryService.getCategoryNametoIdMap());
+
+            Integer categoryId = categoryService.getCategoryNametoIdMap().get(categoryName.toLowerCase().trim());
 
             if (categoryId != null ) {
                 products = productService.findProductsByCategory(categoryId);

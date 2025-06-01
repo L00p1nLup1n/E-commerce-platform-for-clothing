@@ -1,6 +1,7 @@
 package ship.iu.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 
 public class ProductModel implements Serializable {
@@ -9,6 +10,7 @@ public class ProductModel implements Serializable {
 
     private int id;
     private int categoryid;
+    private String categoryname;
     private String name;
     private String image;
     private int status; // 0: inactive, 1: active
@@ -17,11 +19,36 @@ public class ProductModel implements Serializable {
     private int quantity;
     private int reviewcount;
     private double avgRating;
+    private Date added_date;
 
     public ProductModel() {
     }
 
-    public ProductModel(int id, int categoryid, String name, String image, int status, double price, String description, int quantity, int reviewcount, double avgRating) {
+    //Admin management + user display
+    public ProductModel(int id, int categoryid, String categoryname, String name, String image, int status, double price, String description) {
+        this.id = id;
+        this.categoryid = categoryid;
+        this.categoryname = categoryname;
+        this.name = name;
+        this.image = image;
+        this.status = status;
+        this.price = price;
+        this.description = description;
+    }
+    
+    //Cart object
+    public ProductModel(int id, int categoryid, String name, int status, double price, String description, int quantity) {
+        this.id = id;
+        this.categoryid = categoryid;
+        this.name = name;
+        this.status = status;
+        this.price = price;
+        this.description = description;
+        this.quantity = quantity;
+    }
+
+    //Database object
+    public ProductModel(int id, int categoryid, String name, String image, int status, double price, String description, int reviewcount, double avgRating, Date added_date) {
         this.id = id;
         this.categoryid = categoryid;
         this.name = name;
@@ -29,9 +56,9 @@ public class ProductModel implements Serializable {
         this.status = status;
         this.price = price;
         this.description = description;
-        this.quantity = quantity;
         this.reviewcount = reviewcount > 0 ? reviewcount : 0;
         this.avgRating = avgRating >= 0 ? avgRating : 0.0;
+        this.added_date = added_date;
     }
 
     public int getId() {
@@ -65,7 +92,15 @@ public class ProductModel implements Serializable {
     public void setName(String name) {
         this.name = name;
     } 
-    
+
+    public String getCategoryname() {
+        return categoryname;
+    }
+
+    public void setCategoryname(String categoryname) {
+        this.categoryname = categoryname;
+    }
+
     public int getReviewcount() {
         return reviewcount;
     }
@@ -112,6 +147,14 @@ public class ProductModel implements Serializable {
     public void setAvgRating(double avgRating) {
 
         this.avgRating = avgRating;
+    }
+
+    public Date getAdded_date() {
+        return added_date;
+    }
+
+    public void setAdded_date(Date added_date) {
+        this.added_date = added_date;
     }
 
     public void incrementQuantity() {

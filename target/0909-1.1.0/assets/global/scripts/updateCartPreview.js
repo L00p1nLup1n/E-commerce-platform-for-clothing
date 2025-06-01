@@ -10,19 +10,18 @@ function updateCartPreview(data) {
 
     if (itemsString && itemsString.trim() !== "") {
       const items = itemsString.split(";").filter(Boolean);
-      // console.log("Items:", items); // Debug log
-      // console.log("contextPath:", contextPath); // Debug log
       let html = "";
       items.forEach((item) => {
         const [id, name, qty, price] = item.split(",");
         const subtotal = parseFloat(price) * parseInt(qty, 10);
+        let itemName = name.length > 20 ? name.substring(0, 20) + "..." : name;
         html += `
-        <li style="display: flex; justify-content: space-around; align-items: center;">
-          <a href="${contextPath}/products?productid=${id}">${name}</a>
-          <div>Quantity: ${qty}</div>
-          <div>Price: ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 3 })}$</div>
-        </li>
-      `;
+          <li style="display: flex; justify-content: space-around; align-items: center;">
+            <a href="${contextPath}/products?productid=${id}">${itemName}</a>
+            <div>Quantity: ${qty}</div>
+            <div>Price: ${subtotal.toLocaleString("en-US", { minimumFractionDigits: 1, maximumFractionDigits: 3 })}$</div>
+          </li>
+        `;
       });
       scroller.innerHTML = html;
     } else {

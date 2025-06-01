@@ -10,7 +10,7 @@
 <!-- Head BEGIN -->
 <head>
 <meta charset="utf-8">
-<title>Auto parts shop</title>
+<title>Group 1 Shop</title>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -84,7 +84,16 @@
 <body class="ecommerce">
 	<!-- header -->
 	<div id="notification"></div>	
-	<%@ include file="/common/user/header.jsp"%>
+	<c:choose>
+		<c:when test="${sessionScope.account.id == 2}">
+			<%@ include file="/common/admin/header.jsp" %>
+			<!-- Admin-specific controls -->
+		</c:when>
+		<c:otherwise>
+			<%@ include file="/common/user/header.jsp" %>
+			<!-- Normal user view -->
+		</c:otherwise>
+	</c:choose>
 	<div class="main">
 		<div class="container">
 			<!-- content -->
@@ -119,9 +128,6 @@
 		src="${URL}assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js"
 		type="text/javascript"></script>
 	<!-- slider for products -->
-	<script src='${URL}assets/global/plugins/zoom/jquery.zoom.min.js'
-		type="text/javascript"></script>
-	<!-- product zoom -->
 	<script
 		src="${URL}assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js"
 		type="text/javascript"></script>
@@ -153,7 +159,6 @@
 			Layout.init();
 			Layout.initOWL();
 			LayersliderInit.initLayerSlider();
-			Layout.initImageZoom();
 			Layout.initTouchspin();
 			Layout.initUniform();
 			Layout.initTwitter();
@@ -177,7 +182,6 @@
       src="${URL}assets/global/scripts/bfCacheReload.js"
       type="text/javascript"
 	></script>
-	</script>
 	<script
       src="${URL}assets/global/scripts/updateCartPreview.js"
       type="text/javascript"

@@ -11,6 +11,13 @@ public class ProductServiceImpl implements IProductService{
     IProductDao dao = new ProductDaoImpl();
 
     @Override
+    public List<ProductModel> randomSelectionDisplay(){
+        return dao.randomSelectionDisplay();
+    }
+    public List<ProductModel> getNewArrivals(){
+        return dao.getNewArrivals();
+    }
+    @Override
     public ProductModel findProductById(int productId) {
         return dao.findProductById(productId);
     }

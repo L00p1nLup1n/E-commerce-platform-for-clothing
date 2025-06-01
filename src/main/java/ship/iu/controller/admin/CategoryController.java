@@ -4,12 +4,16 @@ import java.io.File;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.List;
 
 import ship.iu.Services.ICategoryService;
+import ship.iu.Services.IProductService;
+import ship.iu.Services.IReviewService;
 import ship.iu.Services.Implement.CategoryServiceImpl;
-import ship.iu.model.CategoryModel;
-import jakarta.servlet.RequestDispatcher;
+import ship.iu.Services.Implement.ProductServiceImpl;
+import ship.iu.Services.Implement.ReviewServiceImpl;
+import ship.iu.model.ProductModel;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,6 +29,8 @@ import static ship.iu.utils.Constant.*;
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public ICategoryService cateService = new CategoryServiceImpl();
+	public IProductService productService = new ProductServiceImpl();
+	public IReviewService reviewService = new ReviewServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -34,11 +40,22 @@ public class CategoryController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 
 		if (url.contains("/admin/categories")) {
-			List<CategoryModel> list = cateService.findAll();
-			// for (CategoryModel cate : list) {
-			// System.out.print(cate + "\n");
-			// }
-			request.getSession().setAttribute("listcate", list);
+			List<ProductModel> list = productService.findAllProducts();
+			for (ProductModel product : list){
+				String categoryname = cateService.getCategoryIdtoNameMap().get(product.getCategoryid());
+				product.setCategoryname(categoryname);
+			}
+			request.getSession().setAttribute("listproduct", list);
+
+			String queryString = request.getQueryString();
+			String previousUrl = (queryString != null && !queryString.isEmpty()) 
+				? request.getRequestURI() + "?" + queryString 
+				: request.getRequestURI();
+			request.getSession().setAttribute("previousUrl", previousUrl);
+			
+			System.out.println("Current URL: " + previousUrl);
+
+
 			request.getRequestDispatcher("/views/admin/category-list.jsp").forward(request, response);
 
 		} else if (url.contains("/admin/category/add")) {
@@ -46,12 +63,14 @@ public class CategoryController extends HttpServlet {
 
 		} else if (url.contains("/admin/category/edit")) {
 			int id = Integer.parseInt(request.getParameter("id"));
-			CategoryModel category = cateService.findById(id);
-			request.setAttribute("cate", category);
+			ProductModel product = productService.findProductById(id);
+			request.setAttribute("product", product);
+
 			request.getRequestDispatcher("/views/admin/category-edit.jsp").forward(request, response);
 		} else if (url.contains("/admin/category/delete")) {
-			String id = request.getParameter("id");
-			cateService.delete(Integer.parseInt(id));
+			int id = Integer.parseInt(request.getParameter("id"));
+			reviewService.deleteAllReviewFromProduct(id);
+			productService.deleteProduct(id);
 			response.sendRedirect(request.getContextPath() + "/admin/categories");
 		}
 	}
@@ -63,22 +82,20 @@ public class CategoryController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String url = request.getRequestURI();
 		if (url.contains("/admin/category/insert")) {
-			CategoryModel category = new CategoryModel();
-			// lấy dữ liệu từ views
-			String categoryname = request.getParameter("categoryname");
+			ProductModel product = new ProductModel();
+			int categoryid = Integer.parseInt(request.getParameter("categoryid"));
+			String productname = request.getParameter("productname");
 			int status = Integer.parseInt(request.getParameter("status"));
-			int price = Integer.parseInt(request.getParameter("price"));
+			double price = Double.parseDouble(request.getParameter("price"));
 			String desc = request.getParameter("description");
 
-			// String images = request.getParameter("images");
-			// đưa vào model
+			product.setCategoryid(categoryid);
+			product.setName(productname);
+			product.setStatus(status);
+			product.setPrice(price);
+			product.setDescription(desc);
+			product.setAdded_date(new Date());
 
-			category.setCategoryname(categoryname);
-			category.setStatus(status);
-			category.setPrice(price);
-			category.setDesc(desc);
-
-			// xử lí upload file
 			String fname = "";
 			String uploadPath = DIR;
 			File uploadDir = new File(uploadPath);
@@ -86,75 +103,75 @@ public class CategoryController extends HttpServlet {
 				uploadDir.mkdir();
 			}
 			try {
-				Part part = request.getPart("images");
+				Part part = request.getPart("image");
 				if (part.getSize() > 0) {
 					String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
 					int index = filename.lastIndexOf(".");
 					String ext = filename.substring(index + 1);
 					fname = System.currentTimeMillis() + "." + ext;
 					part.write(uploadPath + "/" + fname);
-					category.setImages(fname);
-					// }else if(images != null) {
-					// category.setImages(images);
-
+					product.setImage(fname);
 				} else {
-					category.setImages("avatar.png");
+					product.setImage("avatar.png");
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 
 			}
-
-			// truyền model vào insert
-			cateService.insert(category);
-			// Trả về views
+			productService.addProduct(product);
 			response.sendRedirect(request.getContextPath() + "/admin/categories");
 
 		} else if (url.contains("update")) {
+			int productid = Integer.parseInt(request.getParameter("productid"));
 			int categoryid = Integer.parseInt(request.getParameter("categoryid"));
-			String categoryname = request.getParameter("categoryname");
+			String productname = request.getParameter("productname");
 			String status = request.getParameter("status");
 			int statuss = Integer.parseInt(status);
 			String desc = request.getParameter("description");
-			int price = Integer.parseInt(request.getParameter("price"));
-			CategoryModel category = new CategoryModel();
-			category.setCategoryid(categoryid);
-			category.setCategoryname(categoryname);
-			category.setStatus(statuss);
-			category.setPrice(price);
-			category.setDesc(desc);
-			// luu hinh anh cu
-			CategoryModel cateold = cateService.findById(categoryid);
-			String fileold = cateold.getImages();
-			// Xu ly images
+			double price = Double.parseDouble(request.getParameter("price"));
+
+			ProductModel newProduct = new ProductModel();
+			newProduct.setId(productid);
+			newProduct.setCategoryid(categoryid);
+			newProduct.setName(productname);
+			newProduct.setStatus(statuss);
+			newProduct.setPrice(price);
+			newProduct.setDescription(desc);
+			ProductModel oldProduct = productService.findProductById(productid);
+			String fileold = oldProduct.getImage();
+			
 			String fname = "";
 			String uploadPath = DIR;
-
 			File uploadDir = new File(uploadPath);
 			if (!uploadDir.exists()) {
 				uploadDir.mkdir();
 			}
 			try {
-				Part part = request.getPart("images");
+				Part part = request.getPart("image");
+				System.out.println("Filename: "+fname);
+				System.out.println("part: "+part);
 				if (part.getSize() > 0) {
 					String filename = Paths.get(part.getSubmittedFileName()).getFileName().toString();
-					// đổi tên file
 					int index = filename.lastIndexOf(".");
 					String ext = filename.substring(index + 1);
 					fname = System.currentTimeMillis() + "." + ext;
 					// upload file
 					part.write(uploadPath + "/" + fname);
-					// ghi ten file vao data
-					category.setImages(fname);
+					newProduct.setImage(fname);
 				} else {
-					category.setImages(fileold);
+					newProduct.setImage(fileold);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			cateService.update(category);
-			response.sendRedirect(request.getContextPath() + "/admin/categories");
+			productService.updateProduct(newProduct);
+			String previousUrl = (String) request.getSession().getAttribute("previousUrl");
+			if (previousUrl != null) {
+				response.sendRedirect(previousUrl);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/admin/categories"); //Default
+			}
 		}
 	}
 }

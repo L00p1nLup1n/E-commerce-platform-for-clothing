@@ -22,7 +22,7 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
     <!-- Product Details -->
     <div class="col-md-6">
       <h2>${product.name}</h2>
-      <div class="text-muted">${categoryname}</div>
+      <div class="text-muted">${product.categoryname}</div>
       <div class="product-rating margin-bottom-10">
         <fmt:formatNumber value="${product.avgRating}" type="number" maxFractionDigits="1" var="averageRating"/>
         <c:set var="roundedRating" value="${Math.floor(product.avgRating)}" />
@@ -44,52 +44,60 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
         </strong>
       </div>
       <div class="margin-top-20" id="product-short-desc">
-        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti
-        itaque illum, vero, similique exercitationem at officiis sequi
-        consectetur eligendi aspernatur, corporis quos nobis reiciendis nisi
-        autem iusto quae consequuntur minima!
+        <!-- can be replaced by short desc -->
+        ${product.description.substring(0, product.description.length() > 250 ? 250 : product.description.length())}
       </div>
-      <form
-        action="${pageContext.request.contextPath}/Cart"
-        method="post"
-        class="form-inline margin-top-20"
-        onsubmit="return addToCart(event)"
-      >
-        <input type="hidden" name="action" value="add" />
-        <input type="hidden" name="productId" value="${product.id}" />
-        <input type="hidden" name="productName" value="${product.name}" />
-        <input type="hidden" name="productPrice" value="${product.price}" />
-        <div class="form-group">
-          <label for="quantity">Quantity:</label>
-          <input
-            type="number"
-            name="quantity"
-            value="1"
-            min="1"
-            class="form-control input-sm"
-            style="width: 80px; margin-left: 10px"
-          />
-        </div>
-        <c:choose>
-          <c:when test="${not empty sessionScope.account}">
-            <button type="submit" class="btn btn-success margin-left-20">
-              <i class="fa fa-shopping-cart"></i> Add to Cart
-            </button>
-          </c:when>
-          <c:otherwise>
-            <a
-              href="${pageContext.request.contextPath}/login"
-              class="btn btn-success margin-left-20 login-noti"
-            >
+      <!-- Admin has no cart. Check condition -->
+        <c:if test="${sessionScope.account.id != 2}"> 
+          <form
+            action="${pageContext.request.contextPath}/Cart"
+            method="post"
+            class="form-inline margin-top-20"
+            onsubmit="return addToCart(event)"
+          >
+          <input type="hidden" name="action" value="add" />
+          <input type="hidden" name="productId" value="${product.id}" />
+          <input type="hidden" name="productName" value="${product.name}" />
+          <input type="hidden" name="productPrice" value="${product.price}" />
+          <input type="hidden" name="categoryId" value="${product.categoryid}" />
+          <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <input
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              class="form-control input-sm"
+              style="width: 80px; margin-left: 10px"
+            />
+          </div>
+          <c:choose>
+            <c:when test="${not empty sessionScope.account}">
+              <button type="submit" class="btn btn-success margin-left-20">
+                <i class="fa fa-shopping-cart"></i> Add to Cart
+              </button>
+            </c:when>
+            <c:otherwise>
+              <a
+                href="${pageContext.request.contextPath}/login"
+                class="btn btn-success margin-left-20 login-noti"
+              >
               <i class="fa fa-shopping-cart"></i> Add to Cart
             </a>
-          </c:otherwise>
-        </c:choose>
-      </form>
+            </c:otherwise>
+          </c:choose>
+          </form>
+        </c:if>
       <div class="margin-top-20">
         <button class="btn btn-success" onclick="copyUrl()">
           <i class="fa fa-share" style="color: red"></i> Share
         </button>
+        <!-- Option for admin to edit the product in detailed view -->
+        <c:if test="${sessionScope.account.id == 2}"> 
+          <a href="/0909-1.1.0/admin/category/edit?id=${product.id}" 
+             class="btn btn-primary" 
+             style="text-decoration: none;">Edit</a>
+        </c:if>
       </div>
     </div>
   </div>
@@ -109,18 +117,7 @@ pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="jakarta.tags.core"%>
       <div class="tab-content padding-20 border-top-none">
         <div class="tab-pane active" id="desc">
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe
-            voluptas, debitis deleniti eaque inventore corporis nulla facilis
-            facere quaerat accusamus in veniam praesentium recusandae, rerum,
-            similique consequuntur voluptatibus tempora? Dignissimos delectus
-            cum quibusdam facilis incidunt voluptatum vitae necessitatibus nemo
-            deserunt fugit temporibus consequatur minima dolorem ullam cumque at
-            vel quasi assumenda, numquam libero! Qui reprehenderit adipisci et,
-            assumenda dolorum nihil accusantium deserunt aliquid impedit,
-            tenetur quas corporis quod in commodi maxime dignissimos pariatur
-            facere dolor dolore veniam ipsum fugiat modi recusandae odit.
-            Provident dignissimos minima atque sequi odit sed sint iusto nihil,
-            neque illum est tempore sit repellat. Sit, ipsam?
+            ${product.description}
           </p>
         </div>
         <div class="tab-pane" id="reviews">

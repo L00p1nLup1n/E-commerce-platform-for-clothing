@@ -9,16 +9,13 @@
 			<!-- BEGIN BOTTOM ABOUT BLOCK -->
 			<div class="col-md-3 col-sm-6 pre-footer-col">
 				<h2>About us</h2>
-				<p>Welcome to Group 1 Shop, your trusted partner in quality auto
-					parts and accessories. For years, we have been committed to
-					providing top-notch solutions for your vehicle's needs. From
-					performance upgrades to essential replacements, we ensure every
-					product meets the highest standards.</p>
-				<p>At Group 1 Shop, we prioritize customer satisfaction by
-					offering a diverse range of products, expert guidance, and
-					dependable service. Whether you're a car enthusiast or a daily
-					driver, our mission is to keep you on the road with reliability and
-					confidence. Thank you for choosing us for your automotive needs!</p>
+				<p>Group 1 is a dynamic e-commerce clothing platform dedicated to delivering stylish, high-quality apparel. 
+				   Founded on a passion for design and community, we curate versatile collections that blend timeless elegance 
+				   with contemporary trends. </p>
+				<p>Our commitment to sustainability drives us to source eco-friendly materials and partner with ethical manufacturers. 
+				   At Group 1, customer satisfaction is paramount: we offer intuitive browsing, fast shipping, and responsive support. 
+				   Whether you’re looking for everyday essentials or statement pieces, our goal is to inspire confidence and individuality through fashion. 
+				   Discover your next favorite outfit with Group 1 today.</p>
 			</div>
 			<!-- END BOTTOM ABOUT BLOCK -->
 			<!-- BEGIN BOTTOM INFO BLOCK -->
@@ -59,8 +56,8 @@
 				<address class="margin-bottom-40">
 					35, Lorem Lis Street, Park Ave<br> California, US<br>
 					Phone: 300 323 3456<br> Fax: 300 323 1456<br> Email: <a
-						href="mailto:info@metronic.com">info@metronic.com</a><br>
-					Skype: <a href="skype:metronic">metronic</a>
+						href="mailto:info@clothing.com">info@clothing.com</a><br>
+					Skype: <a href="skype:clothing">clothing</a>
 				</address>
 			</div>
 			<!-- END BOTTOM CONTACTS -->
@@ -109,8 +106,7 @@
 	<div class="container">
 		<div class="row">
 			<!-- BEGIN COPYRIGHT -->
-			<div class="col-md-6 col-sm-6 padding-top-10">2014 © Metronic
-				Shop UI. ALL Rights Reserved.</div>
+			<div class="col-md-6 col-sm-6 padding-top-10">2014 © Clothing platform UI. ALL Rights Reserved.</div>
 			<!-- END COPYRIGHT -->
 			<!-- BEGIN PAYMENTS -->
 			<div class="col-md-6 col-sm-6">

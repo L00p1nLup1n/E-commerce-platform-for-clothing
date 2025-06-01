@@ -19,7 +19,7 @@
             <h4>Found ${products.size()} products matching your preference.</h4>
             <div class="product-list">
                 <c:forEach var="product" items="${products}">
-                    <div class="product-item">
+                    <div class="product-item" style="border: 1px solid #e74c3c">
                         <a href="${pageContext.request.contextPath}/products?productid=${product.id}" style="text-decoration: none; color: inherit;">
                         <div class="product-container" style="display: flex; gap: 15px;">
                             <div class="pi-img-wrapper uniform-wrapper" style="flex: 0 0 auto;">
@@ -31,10 +31,10 @@
                                         <c:url value="${product.image}" var="imgUrl"></c:url>
                                     </c:otherwise>
                                 </c:choose>
-                                <img src="${imgUrl}" class="img-responsive" alt="${product.name}" style="max-height: 150px; max-width: 200px;">
+                                <img src="${imgUrl}" class="img-responsive" alt="${product.name}" style="max-height: 550px; max-width: 200px;">
                             </div>
-                            <div class="product-description" style="flex: 1; max-width: 500px; margin: 20px">
-                                ${product.description != null && product.description.length() > 100 ? product.description.substring(0, 100) + '...' : product.description}
+                            <div class="product-description" style="flex: 1; max-width: 650px; padding: 20px; background-color:rgb(240, 255, 255); border-radius: 10px; border: 1px solid orange">
+                                ${product.description}
                             </div>
                         </div>
                             <div style="margin-left: 20px">

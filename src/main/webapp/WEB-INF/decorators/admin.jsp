@@ -10,7 +10,7 @@
 <!-- Head BEGIN -->
 <head>
 <meta charset="utf-8">
-<title>Auto parts shop</title>
+<title>Group 1 Shop</title>
 
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -117,9 +117,6 @@
 		src="${URL}assets/global/plugins/carousel-owl-carousel/owl-carousel/owl.carousel.min.js"
 		type="text/javascript"></script>
 	<!-- slider for products -->
-	<script src='${URL}assets/global/plugins/zoom/jquery.zoom.min.js'
-		type="text/javascript"></script>
-	<!-- product zoom -->
 	<script
 		src="${URL}assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js"
 		type="text/javascript"></script>
@@ -151,13 +148,15 @@
 			Layout.init();
 			Layout.initOWL();
 			LayersliderInit.initLayerSlider();
-			Layout.initImageZoom();
 			Layout.initTouchspin();
 			Layout.initUniform();
 			Layout.initTwitter();
 			Layout.initFixHeaderWithPreHeader();
 			Layout.initNavScrolling();
 		});
+	</script>
+	<script>
+		var URL = "${pageContext.request.contextPath}";
 	</script>
 	<!-- END PAGE LEVEL JAVASCRIPTS -->
 </body>

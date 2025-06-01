@@ -19,7 +19,7 @@ import ship.iu.Services.Implement.IUserServiceImpl;
 
 
 
-@WebServlet(urlPatterns = { "/register", "/dang-ki" })
+@WebServlet(urlPatterns = {"/register"})
 public class RegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 @SuppressWarnings("static-access")
@@ -43,7 +43,7 @@ public class RegisterController extends HttpServlet {
 			return;
 		}
 		if (service.checkExistUsername(username)) {
-			alertMsg = "This account is in use!";
+			alertMsg = "This username has been taken!";
 			request.setAttribute("alert", alertMsg);
 			request.getRequestDispatcher("/views/Register.jsp").forward(request, response);
 			return;
@@ -63,25 +63,5 @@ public class RegisterController extends HttpServlet {
 			throws ServletException, IOException {
 		RequestDispatcher rd = request.getRequestDispatcher("/views/Register.jsp");
 		rd.forward(request, response);
-		/*HttpSession session = request.getSession(false);
-		if (session != null && session.getAttribute("username") != null) {
-		response.sendRedirect(request.getContextPath() + "/admin");
-		return;
-		}
-		Cookie[] cookies = request.getCookies();
-		if (cookies != null) {
-		for (Cookie cookie : cookies) {
-		 if (cookie.getName().equals("username")) {
-		session = request.getSession(true);
-		session.setAttribute("username", cookie.getValue());
-		response.sendRedirect(request.getContextPath() + "/admin");
-		return;
-		 }
-		}
-		}
-		request.getRequestDispatcher("/views/Register.jsp").forward(request, response);
-		}*/
-
-
-}
+	}
 }

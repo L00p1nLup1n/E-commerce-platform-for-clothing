@@ -30,6 +30,7 @@ ship\iu\Services\Implement\ProductServiceImpl.class
 ship\iu\controller\admin\CategoryController.class
 ship\iu\model\ReviewModel.class
 ship\iu\controller\LoginController.class
+ship\iu\controller\filter\GlobalFilter.class
 ship\iu\controller\filter\AdminFilter.class
 ship\iu\controller\ItemDetailController.class
 ship\iu\Services\IUserService.class

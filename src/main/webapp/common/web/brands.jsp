@@ -7,18 +7,18 @@
 	<div class="container">
 		<div class="brands-gallery">
 			<a href="shop-product-list.html"><img
-				src="${URL}/assets/frontend/pages/img/brands/yss.png" alt="YSS"
-				title="YSS"></a> <a href="shop-product-list.html"><img
-				src="${URL}/assets/frontend/pages/img/brands/dna.png" alt="DNA"
-				title="DNA"></a> <a href="shop-product-list.html"><img
-				src="${URL}/assets/frontend/pages/img/brands/honda.png" alt="Honda"
-				title="Honda"></a> <a href="shop-product-list.html"><img
-				src="${URL}/assets/frontend/pages/img/brands/rcb.png" alt="RCB"
-				title="RCB"></a> <a href="shop-product-list.html"><img
-				src="${URL}/assets/frontend/pages/img/brands/liquimoly.png" alt="Liqui Moly"
-				title="Liqui Moly"></a> <a href="shop-product-list.html"><img
-				src="${URL}/assets/frontend/pages/img/brands/brembo.png" alt="Brembo"
-				title="Brembo"></a>
+				src="${URL}/assets/frontend/pages/img/brands/canon.jpg" alt="Canon"
+				title="Canon"></a> <a href="#"><img
+				src="${URL}/assets/frontend/pages/img/brands/esprit.jpg" alt="ESpirit"
+				title="ESpirit"></a> <a href="#"><img
+				src="${URL}/assets/frontend/pages/img/brands/gap.jpg" alt="Gap"
+				title="Gap"></a> <a href="#"><img
+				src="${URL}/assets/frontend/pages/img/brands/next.jpg" alt="Next"
+				title="Next"></a> <a href="#"><img
+				src="${URL}/assets/frontend/pages/img/brands/puma.jpg" alt="Puma"
+				title="Puma"></a> <a href="#"><img
+				src="${URL}/assets/frontend/pages/img/brands/zara.jpg" alt="Zara"
+				title="Zara"></a>
 		</div>
 	</div>
 </div>

@@ -1,6 +1,7 @@
 package ship.iu.Services.Implement;
 
 import java.util.List;
+import java.util.Map;
 
 import ship.iu.Services.ICategoryService;
 import ship.iu.dao.ICategoryDao;
@@ -58,12 +59,12 @@ public class CategoryServiceImpl implements ICategoryService {
 		dao.updateStatus(id, status);
 	}
 	
-	public String getCategoryNameById(int categoryid){
-		return dao.getCategoryNameById(categoryid);
+ 	public Map <String, Integer> getCategoryNametoIdMap(){
+		return dao.getCategoryNametoIdMap();
 	}
 	
-	public Integer getCategoryIdByName(String categoryname){
-		return dao.getCategoryIdByName(categoryname);
+ 	public Map <Integer, String> getCategoryIdtoNameMap(){
+		return dao.getCategoryIdtoNameMap();
 	}
 }
 

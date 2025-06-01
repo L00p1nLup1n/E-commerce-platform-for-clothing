@@ -1,5 +1,6 @@
 package ship.iu.dao.impl;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -9,9 +10,61 @@ import ship.iu.dao.IProductDao;
 import ship.iu.model.ProductModel;
 
 public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
-    // Implement methods from IProductDao interface here
-    // For example:
-    
+    public List<ProductModel> randomSelectionDisplay() {
+        String sql = "SELECT * FROM product ORDER BY RAND() LIMIT 8"; // Randon picks
+        List<ProductModel> randomSelect = new ArrayList<>();
+        
+        try (Connection conn = getConn();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                    randomSelect.add(new ProductModel(
+                        rs.getInt("productid"), 
+                        rs.getInt("categoryid"),
+                        rs.getString("productname"), 
+                        rs.getString("image"), 
+                        rs.getInt("status"),
+                        rs.getDouble("price"), 
+                        rs.getString("description"),
+                        rs.getInt("reviewcount"), 
+                        rs.getDouble("avgRating"),
+                        rs.getDate("added_date")
+                    ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return randomSelect;
+    }
+
+    public List<ProductModel> getNewArrivals() {
+        String sql = "SELECT * FROM product ORDER BY added_date DESC LIMIT 7"; // Newest products first
+        List<ProductModel> newArrivals = new ArrayList<>();
+        
+        try (Connection conn = getConn();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                    newArrivals.add(new ProductModel(
+                        rs.getInt("productid"), 
+                        rs.getInt("categoryid"),
+                        rs.getString("productname"), 
+                        rs.getString("image"), 
+                        rs.getInt("status"),
+                        rs.getDouble("price"), 
+                        rs.getString("description"),
+                        rs.getInt("reviewcount"), 
+                        rs.getDouble("avgRating"),
+                        rs.getDate("added_date")
+                    ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return newArrivals;
+    }
+
     @Override
     public List<ProductModel> findProductsByCategory(int categoryId) {
         String sql = "SELECT * FROM product WHERE categoryid = ?;";
@@ -29,10 +82,10 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
                         rs.getString("image"), 
                         rs.getInt("status"),
                         rs.getDouble("price"), 
-                        rs.getString("description"), 
-                        rs.getInt("quantity"), 
+                        rs.getString("description"),
                         rs.getInt("reviewcount"), 
-                        rs.getDouble("avgRating")
+                        rs.getDouble("avgRating"),
+                        rs.getDate("added_date")
                     ));
                 }
             }
@@ -54,16 +107,16 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 list.add(new ProductModel(
-                    rs.getInt("productid"), 
-                    rs.getInt("categoryid"),
-                    rs.getString("productname"), 
-                    rs.getString("image"), 
-                    rs.getInt("status"),
-                    rs.getDouble("price"), 
-                    rs.getString("description"), 
-                    rs.getInt("quantity"), 
-                    rs.getInt("reviewcount"), 
-                    rs.getDouble("avgRating")
+                        rs.getInt("productid"), 
+                        rs.getInt("categoryid"),
+                        rs.getString("productname"), 
+                        rs.getString("image"), 
+                        rs.getInt("status"),
+                        rs.getDouble("price"), 
+                        rs.getString("description"),
+                        rs.getInt("reviewcount"), 
+                        rs.getDouble("avgRating"),
+                        rs.getDate("added_date")
                 ));
             }
         } catch (Exception e) {
@@ -84,16 +137,16 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     productModel = new ProductModel(
-                    rs.getInt("productid"), 
-                    rs.getInt("categoryid"),
-                    rs.getString("productname"), 
-                    rs.getString("image"), 
-                    rs.getInt("status"),
-                    rs.getDouble("price"), 
-                    rs.getString("description"), 
-                    rs.getInt("quantity"), 
-                    rs.getInt("reviewcount"), 
-                    rs.getDouble("avgRating")
+                        rs.getInt("productid"), 
+                        rs.getInt("categoryid"),
+                        rs.getString("productname"), 
+                        rs.getString("image"), 
+                        rs.getInt("status"),
+                        rs.getDouble("price"), 
+                        rs.getString("description"),
+                        rs.getInt("reviewcount"), 
+                        rs.getDouble("avgRating"),
+                        rs.getDate("added_date")
                 );}
             }
         } catch (Exception e) {
@@ -103,7 +156,7 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
     }
 
     public void addProduct(ProductModel product) {
-        String sql = "INSERT INTO product (productname, categoryid, image, status, price, description, quantity) VALUES (?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO product (productname, categoryid, image, status, price, description, added_date) VALUES (?, ?, ?, ?, ?, ?, NOW());";
         try (Connection conn = super.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, product.getName());
@@ -112,7 +165,6 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
             ps.setInt(4, product.getStatus());
             ps.setDouble(5, product.getPrice());
             ps.setString(6, product.getDescription());
-            ps.setInt(7, product.getQuantity());
 
             ps.executeUpdate();
         } catch (Exception e) {
@@ -132,15 +184,16 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
     }
 
     public void updateProduct(ProductModel product) {
-        String sql = "UPDATE product SET productname = ?, status = ?, price = ?, description = ?, quantity = ? WHERE productid = ?";
+        String sql = "UPDATE product SET productname = ?, categoryid = ?, image = ?, status = ?, price = ?, description = ? WHERE productid = ?";
         try (Connection conn = super.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, product.getName());
-            ps.setInt(2, product.getStatus());
-            ps.setDouble(3, product.getPrice());
-            ps.setString(4, product.getDescription());
-            ps.setInt(5, product.getQuantity());
-            ps.setInt(6, product.getId());
+            ps.setInt(2, product.getCategoryid());
+            ps.setString(3, product.getImage());
+            ps.setInt(4, product.getStatus());
+            ps.setDouble(5, product.getPrice());
+            ps.setString(6, product.getDescription());
+            ps.setInt(7, product.getId());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -156,16 +209,16 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     list.add(new ProductModel(
-                    rs.getInt("productid"), 
-                    rs.getInt("categoryid"),
-                    rs.getString("productname"), 
-                    rs.getString("image"), 
-                    rs.getInt("status"),
-                    rs.getDouble("price"), 
-                    rs.getString("description"), 
-                    rs.getInt("quantity"), 
-                    rs.getInt("reviewcount"), 
-                    rs.getDouble("avgRating")
+                        rs.getInt("productid"), 
+                        rs.getInt("categoryid"),
+                        rs.getString("productname"), 
+                        rs.getString("image"), 
+                        rs.getInt("status"),
+                        rs.getDouble("price"), 
+                        rs.getString("description"),
+                        rs.getInt("reviewcount"), 
+                        rs.getDouble("avgRating"),
+                        rs.getDate("added_date")
                 ));}
             }
         } catch (Exception e) {

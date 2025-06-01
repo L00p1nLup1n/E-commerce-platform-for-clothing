@@ -6,6 +6,11 @@ import ship.iu.model.ReviewModel;
 import java.util.List;
 public class ReviewServiceImpl implements IReviewService {
     private IReviewDao reviewDao = new ReviewDaoImpl();
+
+    @Override
+    public void deleteAllReviewFromProduct(int productId){
+        reviewDao.deleteAllReviewFromProduct(productId);
+    }
     @Override
     public void addReview(ReviewModel review) {
         reviewDao.addReview(review);

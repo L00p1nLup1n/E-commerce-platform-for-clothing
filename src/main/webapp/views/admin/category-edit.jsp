@@ -14,45 +14,59 @@ textarea#description {
 <form action="${pageContext.request.contextPath}/admin/category/update"
 	method="post" enctype="multipart/form-data">
 	<!-- Hidden field for category ID -->
-	<input type="hidden" id="categoryid" name="categoryid"
-		value="${cate.categoryid}">
+
+	<input type="hidden" id="productid" name="productid"
+		value="${product.id}">
+
+	<label for="categoryid">Category:</label><br> 
+	<select id="categoryid" name="categoryid" required>
+		<option value="1" ${product.categoryid == '1' ? 'selected' : ''}>Men</option>
+		<option value="2" ${product.categoryid == '2' ? 'selected' : ''}>Unisex</option>
+		<option value="3" ${product.categoryid == '3' ? 'selected' : ''}>Women</option>
+		<option value="4" ${product.categoryid == '4' ? 'selected' : ''}>Outerwear</option>
+		<option value="5" ${product.categoryid == '5' ? 'selected' : ''}>Business</option>
+		<option value="6" ${product.categoryid == '6' ? 'selected' : ''}>Kids</option>
+	</select><br>
+
 
 	<!-- Category name -->
-	<label for="categoryname">Category name:</label><br> <input
-		type="text" id="categoryname" name="categoryname"
-		value="${cate.categoryname}" required><br>
+	<label for="productname">Product name:</label><br> <input
+		type="text" id="productname" name="productname"
+		value="${product.name}" required><br>
 
 	<!-- Description -->
 	<label for="description">Description:</label><br>
 	<textarea id="description" name="description"
-		placeholder="Enter description here">${cate.desc}</textarea>
+		placeholder="Enter description here">${product.description}</textarea>
 	<br>
 
 	<!-- Price -->
 	<label for="price">Price:</label><br> <input type="number"
 		id="price" name="price" min="0" step="0.01" placeholder="Enter price"
-		value="${cate.price}" required><br>
+		value="${product.price}" required><br>
 
 	<!-- Images -->
-	<label for="images">Images:</label><br>
+	<label for="image">Images:</label><br>
 	<c:choose>
 		<c:when
-			test="${cate.images != null && cate.images.length() >= 5 && cate.images.substring(0,5) != 'https'}">
-			<c:url value="/image?fname=${cate.images}" var="imgUrl"></c:url>
+			test="${product.image != null && product.image.length() >= 5 && product.image.substring(0,5) != 'https'}">
+			<c:url value="/image?fname=${product.image}" var="imgUrl"></c:url>
 		</c:when>
 		<c:otherwise>
-			<c:url value="${cate.images}" var="imgUrl"></c:url>
+			<c:url value="${product.image}" var="imgUrl"></c:url>
 		</c:otherwise>
 	</c:choose>
 	<img height="150" width="200" src="${imgUrl}" alt="Category Image" /><br>
-	<input type="file" id="images" name="images"><br>
+	<input type="file" id="image" name="image"><br>
 
 	<!-- Status -->
-	<label for="status">Status:</label><br> <input type="radio"
-		id="ston" name="status" value="1" ${cate.status == 1 ? 'checked' : ''}>
-	<label for="ston">Active</label><br> <input type="radio"
-		id="stoff" name="status" value="0"
-		${cate.status != 1 ? 'checked' : ''}> <label for="stoff">Stopped</label><br>
+	<label for="status">Status:</label><br> 
+	<input type="radio" id="ston" name="status" value="1" ${product.status == 1 ? 'checked="checked"' : ''}>
+	<label for="ston">Active</label>
+	<br> 
+	<input type="radio" id="stoff" name="status" value="0" ${product.status != 1 ? 'checked="checked"' : ''}>
+	<label for="stoff">Stopped</label>
+	<br>
 
 	<!-- Submit button -->
 	<input type="submit" value="Update">

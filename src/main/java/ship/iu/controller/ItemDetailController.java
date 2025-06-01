@@ -17,7 +17,6 @@ import ship.iu.Services.IReviewService;
 import ship.iu.Services.Implement.CategoryServiceImpl;
 import ship.iu.Services.Implement.ProductServiceImpl;
 import ship.iu.Services.Implement.ReviewServiceImpl;
-import ship.iu.model.CategoryModel;
 import ship.iu.model.ProductModel;
 import ship.iu.model.ReviewModel;
 import ship.iu.model.UserModel;
@@ -31,19 +30,29 @@ public class ItemDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
-            int productId = Integer.parseInt(request.getParameter("productid"));   
+            int productId = Integer.parseInt(request.getParameter("productid"));
             ProductModel product = productService.findProductById(productId);
-            List<ReviewModel> reviews = reviewService.getReviewsByProductId(productId);
-            String categoryname = categoryService.getCategoryNameById(productId);
             if (product == null) {
                 response.sendRedirect(request.getContextPath() + "/home");
                 return;
             }
+            
+            List<ReviewModel> reviews = reviewService.getReviewsByProductId(productId);
+            String categoryname = categoryService.getCategoryIdtoNameMap().get(product.getCategoryid());
+            product.setCategoryname(categoryname);
+
             System.out.println("The current category is: "+ categoryname);
             request.setAttribute("product", product);
-            request.setAttribute("categoryname", categoryname);
             request.setAttribute("reviews", reviews);
-            
+
+			String queryString = request.getQueryString();
+			String previousUrl = (queryString != null && !queryString.isEmpty()) 
+				? request.getRequestURI() + "?" + queryString 
+				: request.getRequestURI();
+            request.getSession().setAttribute("previousUrl", previousUrl);
+			
+			System.out.println("Current URL: " + previousUrl);
+
             // Forward to the item details page
             request.getRequestDispatcher("/views/ItemDetails.jsp").forward(request, response);
 

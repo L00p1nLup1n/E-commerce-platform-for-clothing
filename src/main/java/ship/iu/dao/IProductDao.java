@@ -3,6 +3,8 @@ import java.util.List;
 import ship.iu.model.ProductModel;
 
 public interface IProductDao {
+    List<ProductModel> randomSelectionDisplay();
+    List<ProductModel> getNewArrivals();
     List<ProductModel> findProductsByCategory(int categoryId);
     List<ProductModel> findAllProducts();
     ProductModel findProductById(int productId);

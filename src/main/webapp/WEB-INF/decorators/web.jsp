@@ -9,7 +9,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
   <!-- Head BEGIN -->
   <head>
     <meta charset="utf-8" />
-    <title>Auto parts shop</title>
+    <title>Group 1 Shop</title>
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -129,6 +129,9 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
       src="${URL}assets/global/plugins/bootstrap/js/bootstrap.min.js"
       type="text/javascript"
     ></script>
+    <script>
+  		var contextPath = "${pageContext.request.contextPath}"
+	  </script>
     <script
       src="${URL}assets/frontend/layout/scripts/back-to-top.js"
       type="text/javascript"
@@ -150,11 +153,6 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
       type="text/javascript"
     ></script>
     <!-- slider for products -->
-    <script
-      src="${URL}assets/global/plugins/zoom/jquery.zoom.min.js"
-      type="text/javascript"
-    ></script>
-    <!-- product zoom -->
     <script
       src="${URL}assets/global/plugins/bootstrap-touchspin/bootstrap.touchspin.js"
       type="text/javascript"
@@ -196,7 +194,6 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
         Layout.init();
         Layout.initOWL();
         LayersliderInit.initLayerSlider();
-        Layout.initImageZoom();
         Layout.initTouchspin();
         Layout.initUniform();
         Layout.initTwitter();

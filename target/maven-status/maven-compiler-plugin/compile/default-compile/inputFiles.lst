@@ -5,6 +5,7 @@ C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\Checkout
 C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\DBconnectionSQL.java
 C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\DownloadFileController.java
 C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\filter\AdminFilter.java
+C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\filter\GlobalFilter.java
 C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\filter\SellerFilter.java
 C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\filter\UserFilter.java
 C:\Users\dqvth\Documents\GitHub\Group1\src\main\java\ship\iu\controller\ForgotPasswordController.java

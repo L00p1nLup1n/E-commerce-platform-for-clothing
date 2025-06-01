@@ -12,7 +12,7 @@
 			data-ls="offsetxin: right; slidedelay: 7000; transition2d: 24,25,27,28;">
 
 			<img
-				src="${URL}/assets/frontend/pages/img/layerslider/slide1/yssbanner.jpg"
+				src="${URL}/assets/frontend/pages/img/layerslider/slide1/bg.jpg"
 				class="ls-bg" alt="Slide background">
 
 
@@ -25,7 +25,7 @@
 			data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
 
 			<img
-				src="${URL}/assets/frontend/pages/img/layerslider/slide2/dnabanner.jpg"
+				src="${URL}/assets/frontend/pages/img/layerslider/slide2/bg.jpg"
 				class="ls-bg" alt="Slide background">
 
 			<div class="ls-l ls-title"
@@ -54,7 +54,7 @@
 		<div class="ls-slide ls-slide3"
 			data-ls="offsetxin: right; slidedelay: 7000; transition2d: 92,93,105;">
 
-			<img src="${URL}/assets/frontend/pages/img/layerslider/slide3/rcbbanner.jpg"
+			<img src="${URL}/assets/frontend/pages/img/layerslider/slide3/bg.jpg"
 				class="ls-bg" alt="Slide background">
 
 			<div class="ls-l ls-title"
@@ -92,7 +92,7 @@
 		<div class="ls-slide ls-slide4"
 			data-ls="offsetxin: right; slidedelay: 7000; transition2d: 110,111,112,113;">
 
-			<img src="${URL}/assets/frontend/pages/img/layerslider/slide4/hondabanner.jpg"
+			<img src="${URL}/assets/frontend/pages/img/layerslider/slide4/bg.jpg"
 				class="ls-bg" alt="Slide background">
 
 			<div class="ls-l ls-title"

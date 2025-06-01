@@ -69,7 +69,6 @@ public class CartController extends HttpServlet {
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
                 double productPrice = Double.parseDouble(request.getParameter("productPrice"));
                 String productDescription = request.getParameter("productDescription");
-                String image = request.getParameter("image");
                 // Check if the product is already in the cart
                 boolean found = false;
                 for (ProductModel product : cart) {
@@ -82,7 +81,7 @@ public class CartController extends HttpServlet {
 
                 // If not found, add a new product
                 if (!found) {
-                    ProductModel newProduct = new ProductModel(productId, categoryid, productName, image , 1, productPrice, productDescription, quantity, 0, 0.0);
+                    ProductModel newProduct = new ProductModel(productId, categoryid, productName, 1, productPrice, productDescription, quantity);
                     cart.add(newProduct);
                 }
 

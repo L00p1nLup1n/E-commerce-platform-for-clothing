@@ -1,6 +1,7 @@
 package ship.iu.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import ship.iu.model.CategoryModel;
 
@@ -9,8 +10,8 @@ public interface ICategoryDao {
  List<CategoryModel> findAll();
  CategoryModel findById(int id);
  CategoryModel findByname(String name);
- String getCategoryNameById(int categoryid);
- Integer getCategoryIdByName(String categoryname);
+ Map <String, Integer> getCategoryNametoIdMap();
+ Map <Integer, String> getCategoryIdtoNameMap();
  void insert(CategoryModel category);
  void update(CategoryModel category);
  void delete(int id);

@@ -19,16 +19,15 @@ public class HomeController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private IProductService productService = new ProductServiceImpl();
-	private ICategoryService categoryService = new CategoryServiceImpl();
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		List<ProductModel> products = productService.findAllProducts();
-		if (categoryService.getCategoryNameById(1) == null) {
-				categoryService.loadCategories();
-				System.out.println("Categories loaded on first access.");
-			}
-	    req.setAttribute("products", products);
+		List<ProductModel> newArrivals = productService.getNewArrivals();
+		List<ProductModel> randomSelect = productService.randomSelectionDisplay();
+		List<ProductModel> promotions = productService.findProductsByCategory(1); //Men category id is 1
+	    req.setAttribute("newArrivals", newArrivals);
+		req.setAttribute("randomSelect", randomSelect);
+		req.setAttribute("promotions", promotions);
 
 		req.getRequestDispatcher("/views/Home.jsp").forward(req, resp);
 

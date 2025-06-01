@@ -1,6 +1,7 @@
 package ship.iu.Services;
 
 import java.util.List;
+import java.util.Map;
 
 import ship.iu.model.CategoryModel;
 
@@ -13,9 +14,9 @@ public interface ICategoryService {
 
 	CategoryModel findByname(String name);
 
-	String getCategoryNameById(int categoryid);
-	
-	Integer getCategoryIdByName(String categoryname);
+	Map <String, Integer> getCategoryNametoIdMap();
+
+	Map <Integer, String> getCategoryIdtoNameMap();
 
 	void insert(CategoryModel category);
 

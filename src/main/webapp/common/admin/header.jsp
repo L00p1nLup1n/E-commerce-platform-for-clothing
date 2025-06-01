@@ -34,7 +34,7 @@
 						</c:when>
 						<c:otherwise>
 							<li><a
-								href="${pageContext.request.contextPath }/member/myaccount">${sessionScope.account.fullname }</a></li>
+								href="${pageContext.request.contextPath }/member/myaccount">${sessionScope.account.fullname}</a></li>
 							<li><a href="${pageContext.request.contextPath }/logout">Logout
 							</a></li>
 						</c:otherwise>
@@ -65,16 +65,11 @@
 			<i class="fa fa-shopping-cart"></i>
 
 			<div class="top-cart-content-wrapper">
-				<div class="top-cart-content">
+				<div class="top-cart-content" style="border: 1px solid grey">
 					<ul class="scroller" style="height: 250px;">
-						<li><span class="cart-content-count"></span> <strong><a
-								href="shop-item.html">No items in cart right now</a></strong></li>
 					</ul>
 					<div class="text-right">
-						<a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-default">View
-							Cart</a> <a
-							href="${pageContext.request.contextPath}/views/Checkout.jsp"
-							class="btn btn-primary">Checkout</a>
+						<a href="${pageContext.request.contextPath}/admin/categories" class="btn btn-primary">Manage Products</a>
 					</div>
 				</div>
 			</div>
@@ -84,14 +79,13 @@
 		<!-- BEGIN NAVIGATION -->
 		<div class="header-navigation">
 			<ul>
-				<li><a> Home </a></li>
-				<li><a> Suspensions </a></li>
-				<li><a> Filters </a></li>
-				<li><a> Spark plugs </a></li>
-				<li><a> Tires </a></li>
-				<li><a> Brakes </a></li>
-				<li><a> Services </a></li>
-
+				<li><a href="${pageContext.request.contextPath}/admin/home"> Home </a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/search?categoryname=Kids"> Kids </a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/search?categoryname=Men"> Men </a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/search?categoryname=Women"> Women </a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/search?categoryname=Unisex"> Unisex </a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/search?categoryname=Outerwear"> Outerwear </a></li>
+				<li><a href="${pageContext.request.contextPath}/admin/search?categoryname=Business"> Business </a></li>				
 				<!-- BEGIN TOP SEARCH -->
 				<li class="menu-search"><span class="sep"></span> <i
 					class="fa fa-search search-btn"></i>

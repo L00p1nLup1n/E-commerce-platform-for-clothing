@@ -16,7 +16,7 @@
                 <p>Your cart is empty.</p>
             </c:when>
             <c:otherwise>
-                <p>Items in your cart:</p>
+                <p>Items in your cart:</p><br>
                 <table class="cart-table" style="table-layout: fixed; width: 100%; margin-bottom: 20px;">
                     <thead>
                         <tr>
@@ -30,7 +30,7 @@
                     <tbody>
                         <c:forEach var="product" items="${cart}">
                             <tr>
-                                <td>${product.name}</td>
+                                <td><a href="${pageContext.request.contextPath}/products?productid=${product.id}">${product.name}</a></td>
                                 <td>
                                     <input type="hidden" name="productId" value="${product.id}">
                                     <input type="number" name="quantity" value="${product.quantity}" min="0" class="form-control" style="width: 69px;">
@@ -46,6 +46,7 @@
                         </c:forEach>
                     </tbody>
                 </table>
+                <br>
                 <div class="cart-summary">
                     <p>Total Items: <span id="total-items">${sessionScope.cartItems}</span></p>
                     <p>Total Price: <span id="total-price">$<fmt:formatNumber value="${sessionScope.cartPrice}" type="number" maxFractionDigits="2"/></span></p>

@@ -8,6 +8,7 @@ import java.util.List;
 
 import ship.iu.controller.DBconnectionSQL;
 import ship.iu.dao.IReviewDao;
+import ship.iu.model.ProductModel;
 import ship.iu.model.ReviewModel;
 
 public class ReviewDaoImpl extends DBconnectionSQL implements IReviewDao {
@@ -37,6 +38,18 @@ public class ReviewDaoImpl extends DBconnectionSQL implements IReviewDao {
             e.printStackTrace();
         }
     }
+
+    public void deleteAllReviewFromProduct(int productId) {
+        String sql = "DELETE FROM review WHERE productId = ?";
+        try (Connection conn = super.getConn();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setInt(1, productId);
+                ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     @Override

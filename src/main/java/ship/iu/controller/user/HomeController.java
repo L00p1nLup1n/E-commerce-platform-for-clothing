@@ -20,8 +20,12 @@ public class HomeController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-	    List<ProductModel> products = productService.findAllProducts();
-	    req.setAttribute("products", products);
+		List<ProductModel> newArrivals = productService.getNewArrivals();
+		List<ProductModel> randomSelect = productService.randomSelectionDisplay();
+		List<ProductModel> promotions = productService.findProductsByCategory(1); //Men category id is 1
+	    req.setAttribute("newArrivals", newArrivals);
+		req.setAttribute("randomSelect", randomSelect);
+		req.setAttribute("promotions", promotions);
 
 	    req.getRequestDispatcher("/views/user/home.jsp").forward(req, resp);
 	}

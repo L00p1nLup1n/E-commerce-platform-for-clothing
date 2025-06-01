@@ -3,7 +3,6 @@ function addToCart(event) {
 
   const form = event.target;
   const quantityInput = form.querySelector("input[name='quantity']").value;
-  console.log("Quantity input value:", quantityInput);
   if (!quantityInput || isNaN(quantityInput) || parseInt(quantityInput, 10) <= 0) {
     alert('Please enter a valid quantity.');
     return false;

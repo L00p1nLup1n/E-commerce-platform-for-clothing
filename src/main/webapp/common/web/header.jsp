@@ -33,7 +33,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
             <c:otherwise>
               <li>
                 <a href="${pageContext.request.contextPath }/member/myaccount"
-                  >${sessionScope.account.fullname }</a
+                  >Hello, ${sessionScope.account.fullname}</a
                 >
               </li>
               <li>
@@ -92,7 +92,7 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
       </div>
       <i class="fa fa-shopping-cart"></i>
       <div class="top-cart-content-wrapper">
-        <div class="top-cart-content">
+        <div class="top-cart-content" style="width: 550px; border: 1px solid grey">
           <ul class="scroller" style="height: 250px">
             <li>
               <span class="cart-content-count"></span>
@@ -116,14 +116,13 @@ pageEncoding="UTF-8"%> <%@include file="/common/taglib.jsp"%>
     <!-- BEGIN NAVIGATION -->
     <div class="header-navigation">
       <ul>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/home')}"> Home </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Kids')}"> Kids </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Men')}"> Men </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Women')}"> Women </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Unisex')}"> Unisex </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Outerwear')}"> Outerwear </a></li>
-        <li><a href="${sessionScope.account != null ? pageContext.request.contextPath.concat('/users/home') : pageContext.request.contextPath.concat('/search?categoryname=Business')}"> Business </a></li>
-
+        <li><a href="${pageContext.request.contextPath}/home"> Home </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Kids"> Kids </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Men"> Men </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Women"> Women </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Unisex"> Unisex </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Outerwear"> Outerwear </a></li>
+        <li><a href="${pageContext.request.contextPath}/search?categoryname=Business"> Business </a></li>
         <!-- BEGIN TOP SEARCH -->
         <li class="menu-search">
           <span class="sep"></span> <i class="fa fa-search search-btn"></i>
