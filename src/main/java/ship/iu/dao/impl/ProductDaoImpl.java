@@ -99,7 +99,7 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
 
     @Override
     public List<ProductModel> findAllProducts() {
-        String sql = "SELECT * FROM product";
+        String sql = "SELECT * FROM product ORDER BY productid desc;";
         List<ProductModel> list = new ArrayList<>();
 
         try (Connection conn = super.getConn();
@@ -201,11 +201,12 @@ public class ProductDaoImpl extends DBconnectionSQL implements IProductDao {
     }
 
     public List<ProductModel> searchProducts(String keyword) {
-        String sql = "SELECT * FROM product WHERE productname LIKE ?;";
+        String sql = "SELECT * FROM product WHERE productname LIKE ? OR description LIKE ?;";
         List<ProductModel> list = new ArrayList<>();
         try (Connection conn = super.getConn();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, "%" + keyword + "%");
+            ps.setString(2, "%" + keyword + "%");
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     list.add(new ProductModel(

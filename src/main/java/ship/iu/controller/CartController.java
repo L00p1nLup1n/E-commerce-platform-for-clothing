@@ -135,9 +135,10 @@ public class CartController extends HttpServlet {
 
                     // Remove products with quantity 0
                     cart.removeIf(product -> product.getQuantity() <= 0);
-
                     // Update the session
                     session.setAttribute("cart", cart);
+                    session.setAttribute("cartItems", cart.size());
+                    session.setAttribute("cartPrice", cart.stream().mapToDouble(ProductModel::getSubtotal).sum());
                 }
 
                 // Redirect to cart page
@@ -172,20 +173,18 @@ public class CartController extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Cart");
 
             }
-            else if ("checkout".equals(action)) {
 
-            if (cart.isEmpty()) {
-                // If the cart is empty, redirect to cart page
-                response.sendRedirect(request.getContextPath() + "/Cart?error=empty");
-                return;
-            }
+            else if ("checkout".equals(action)) {
+                if (cart.isEmpty()) {
+                    // If the cart is empty, redirect to cart page
+                    response.sendRedirect(request.getContextPath() + "/Cart?error=empty");
+                    return;
+                }
             // Clear the cart
             session.removeAttribute("cart");
             session.removeAttribute("cartItems");
             session.removeAttribute("cartPrice");
             session.setAttribute("checkoutSuccess", true);
-
-            // Redirect to a checkout success page
             response.sendRedirect(request.getContextPath() + "/checkout");
             }
             else {

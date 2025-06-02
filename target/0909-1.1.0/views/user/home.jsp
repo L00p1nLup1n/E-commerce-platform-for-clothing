@@ -29,7 +29,7 @@
               <c:set var="productName" value="${fn:length(product.name) > 40 ? fn:substring(product.name, 0, 40) : product.name}" />
               <c:set var="productName" value="${fn:length(product.name) > 40 ? productName.concat('...') : productName}" />
               <h3>${productName}</h3>
-            <div class="pi-price">${product.price}</div>
+            <div class="pi-price">$${product.price}</div>
             <div class="sticker sticker-sale"></div>
           </div>
         </a>
@@ -104,7 +104,7 @@
               <c:set var="productName" value="${fn:length(product.name) > 40 ? fn:substring(product.name, 0, 40) : product.name}" />
               <c:set var="productName" value="${fn:length(product.name) > 40 ? productName.concat('...') : productName}" />
               <h3>${productName}</h3>
-            <div class="pi-price">${product.price}</div>
+            <div class="pi-price">$${product.price}</div>
             <div class="sticker sticker-sale"></div>
           </div>
         </a>
@@ -142,7 +142,7 @@
               <c:set var="productName" value="${fn:length(product.name) > 40 ? fn:substring(product.name, 0, 40) : product.name}" />
               <c:set var="productName" value="${fn:length(product.name) > 40 ? productName.concat('...') : productName}" />
               <h3>${productName}</h3>
-            <div class="pi-price">${product.price}</div>
+            <div class="pi-price">$${product.price}</div>
             <div class="sticker sticker-sale"></div>
           </div>
         </a>

@@ -56,7 +56,7 @@
 								<span class="require">*</span>
 							</label>
 							<div class="col-lg-8">
-								<input type="text" class="form-control" id="confirm-password"
+								<input type="number" class="form-control" id="confirm-password"
 									name="phone" required>
 							</div>
 						</div>

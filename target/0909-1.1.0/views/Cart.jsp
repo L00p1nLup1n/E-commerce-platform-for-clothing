@@ -7,7 +7,7 @@
 </head>
 <body>
     <div class="cart-container"
-         style="width: 80%; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
+         style="width: 100%; margin: 0 auto; background-color: #f8f9fa; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
         <h1>Shopping Cart</h1>
 
         <c:set var="cart" value="${sessionScope.cart}" />
@@ -17,7 +17,7 @@
             </c:when>
             <c:otherwise>
                 <p>Items in your cart:</p><br>
-                <table class="cart-table" style="table-layout: fixed; width: 100%; margin-bottom: 20px;">
+                <table class="cart-table" style="table-layout: fixed; width: 100%; margin-bottom: 20px; border-collapse: separate; border-spacing: 16px;">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -28,6 +28,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <form
+                        action="${pageContext.request.contextPath}/Cart"
+                        method="post"
+                        id="cart-detail"
+                    >
+                    <input type="hidden" name="action" value="update" />
                         <c:forEach var="product" items="${cart}">
                             <tr>
                                 <td><a href="${pageContext.request.contextPath}/products?productid=${product.id}">${product.name}</a></td>
@@ -44,6 +50,10 @@
                                 </td>
                             </tr>
                         </c:forEach>
+                    <button type="submit" title="Update Cart" style="background-color: #e74c3c; color: white; padding: 10px 20px; text-decoration: none; border: none; font-size: 16px; border-radius: 5%;">
+                        <i class="fa fa-refresh" aria-hidden="true"> </i>
+                    </button>
+                    </form>
                     </tbody>
                 </table>
                 <br>

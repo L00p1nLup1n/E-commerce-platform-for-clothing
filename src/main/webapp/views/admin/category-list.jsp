@@ -70,9 +70,4 @@
             </c:forEach>
         </tbody>
     </table>
-
-    <div style="text-align: center; margin-top: 20px;">
-        <a href="${pageContext.request.contextPath}/admin/checkout" 
-           style="display: inline-block; padding: 10px 20px; background-color: #28a745; color: white; text-decoration: none; border-radius: 5px;">Check Out!</a>
-    </div>
 </body>
